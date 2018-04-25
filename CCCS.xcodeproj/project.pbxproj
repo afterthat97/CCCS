@@ -8,20 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		B8AD3A582090220A00198572 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AD3A572090220A00198572 /* AppDelegate.swift */; };
-		B8AD3A5A2090220A00198572 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AD3A592090220A00198572 /* ViewController.swift */; };
+		B8AD3A5A2090220A00198572 /* signInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AD3A592090220A00198572 /* signInViewController.swift */; };
 		B8AD3A5D2090220A00198572 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8AD3A5B2090220A00198572 /* Main.storyboard */; };
 		B8AD3A5F2090220A00198572 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8AD3A5E2090220A00198572 /* Assets.xcassets */; };
 		B8AD3A622090220A00198572 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8AD3A602090220A00198572 /* LaunchScreen.storyboard */; };
+		B8AD3A6C20904B5100198572 /* signUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AD3A6B20904B5100198572 /* signUpViewController.swift */; };
+		B8AD3A702090825B00198572 /* meTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AD3A6F2090825B00198572 /* meTableViewController.swift */; };
+		B8AD3A722090829500198572 /* classViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AD3A712090829500198572 /* classViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B8AD3A542090220A00198572 /* CCCS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCCS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8AD3A572090220A00198572 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B8AD3A592090220A00198572 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B8AD3A592090220A00198572 /* signInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signInViewController.swift; sourceTree = "<group>"; };
 		B8AD3A5C2090220A00198572 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B8AD3A5E2090220A00198572 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8AD3A612090220A00198572 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B8AD3A632090220A00198572 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8AD3A6B20904B5100198572 /* signUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpViewController.swift; sourceTree = "<group>"; };
+		B8AD3A6F2090825B00198572 /* meTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meTableViewController.swift; sourceTree = "<group>"; };
+		B8AD3A712090829500198572 /* classViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,9 +60,12 @@
 		B8AD3A562090220A00198572 /* CCCS */ = {
 			isa = PBXGroup;
 			children = (
+				B8AD3A6F2090825B00198572 /* meTableViewController.swift */,
 				B8AD3A572090220A00198572 /* AppDelegate.swift */,
-				B8AD3A592090220A00198572 /* ViewController.swift */,
+				B8AD3A592090220A00198572 /* signInViewController.swift */,
 				B8AD3A5B2090220A00198572 /* Main.storyboard */,
+				B8AD3A712090829500198572 /* classViewController.swift */,
+				B8AD3A6B20904B5100198572 /* signUpViewController.swift */,
 				B8AD3A5E2090220A00198572 /* Assets.xcassets */,
 				B8AD3A602090220A00198572 /* LaunchScreen.storyboard */,
 				B8AD3A632090220A00198572 /* Info.plist */,
@@ -136,8 +145,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8AD3A5A2090220A00198572 /* ViewController.swift in Sources */,
+				B8AD3A5A2090220A00198572 /* signInViewController.swift in Sources */,
 				B8AD3A582090220A00198572 /* AppDelegate.swift in Sources */,
+				B8AD3A722090829500198572 /* classViewController.swift in Sources */,
+				B8AD3A6C20904B5100198572 /* signUpViewController.swift in Sources */,
+				B8AD3A702090825B00198572 /* meTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
