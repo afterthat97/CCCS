@@ -8,6 +8,13 @@
 
 import UIKit
 
+class user {
+    static var username : String = ""
+    static var name : String = ""
+    static var type : Int = 0
+    static var sex : Int = 0
+}
+
 class signInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -57,6 +64,11 @@ class signInViewController: UIViewController, UITextFieldDelegate {
                 let code = todo!["code"] as? Int
                 let error = todo!["error"] as? String
                 if (code == 0) {
+                    let name = todo!["name"] as? String
+                    let sex = todo!["sex"] as? Int
+                    user.name = name!
+                    user.sex = sex!
+
                     DispatchQueue.main.async { [unowned self] in
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let meTableViewController =
@@ -81,7 +93,9 @@ class signInViewController: UIViewController, UITextFieldDelegate {
             showAlert("Error", "Password cannot be empty.")
         } else {
             var type: String = "1";
-            if (roleSegmentedControl.selectedSegmentIndex == 0) { type = "0"; }
+            user.type = 1
+            if (roleSegmentedControl.selectedSegmentIndex == 0) { type = "0"; user.type = 0; }
+            user.username = usernameTextField.text!
             makeSignInCall(usernameTextField.text!, passwordTextField.text!, type)
         }
     }
