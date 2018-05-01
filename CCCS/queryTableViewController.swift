@@ -17,50 +17,54 @@ class Checkin_record {
 
 var checkin_records = [Checkin_record]()
 
-func makeGetCheckInRecordCall() {
-    checkin_records.removeAll()
-    var todoEndpoint: String = "https://masterliu.net/query.php?cid=\(courses[selectedCourse].id)"
-    if (user.type == "Student") {
-        todoEndpoint = todoEndpoint + "&sid=\(user.id)"
-    }
-    let url = URL(string: todoEndpoint)
-    let urlRequest = URLRequest(url: url!)
-    let config = URLSessionConfiguration.default
-    let session = URLSession(configuration: config)
-    let task = session.dataTask(with: urlRequest) { (data, response, error) in
-        guard let responseData = data else { return }
-        do {
-            let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [[String : Any]];
-            for object in todo! {
-                let checkin_record: Checkin_record = Checkin_record()
-                checkin_record.name = (object["name"] as? String)!
-                checkin_record.start_time = (object["start_time"] as? String)!
-                checkin_record.checkin_time = object["checkin_time"] as? String ?? "N/A"
-                checkin_record.stat = (object["stat"] as? String)!
-                checkin_records.append(checkin_record)
-            }
-        } catch { return }
-    }
-    task.resume()
-}
-
 class queryTableViewController: UITableViewController {
 
     @IBOutlet weak var checkinRecordTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkin_records.removeAll()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.checkinRecordTableView.reloadData()
+        makeGetCheckInRecordCall()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    func makeGetCheckInRecordCall() {
+        checkin_records.removeAll()
+        var todoEndpoint: String = "https://masterliu.net/query.php?cid=\(courses[selectedCourse].id)"
+        if (user.type == "Student") {
+            todoEndpoint = todoEndpoint + "&sid=\(user.id)"
+        }
+        let url = URL(string: todoEndpoint)
+        let urlRequest = URLRequest(url: url!)
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: urlRequest) { (data, response, error) in
+            guard let responseData = data else { return }
+            do {
+                let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [[String : Any]];
+                for object in todo! {
+                    let checkin_record: Checkin_record = Checkin_record()
+                    checkin_record.name = (object["name"] as? String)!
+                    checkin_record.start_time = (object["start_time"] as? String)!
+                    checkin_record.checkin_time = object["checkin_time"] as? String ?? "N/A"
+                    checkin_record.stat = (object["stat"] as? String)!
+                    checkin_records.append(checkin_record)
+                }
+                DispatchQueue.main.async { [unowned self] in
+                    self.checkinRecordTableView.reloadData()
+                }
+            } catch { return }
+        }
+        task.resume()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

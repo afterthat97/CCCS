@@ -61,7 +61,6 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
                 let code = todo!["code"] as? Int
                 let info = todo!["info"] as? String
                 if (code == 0) {
-                    makeGetCourseCall()
                     DispatchQueue.main.async { [unowned self] in
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -93,7 +92,6 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
                 let code = todo!["code"] as? Int
                 let info = todo!["info"] as? String
                 if (code == 0) {
-                    makeGetCourseCall()
                     DispatchQueue.main.async { [unowned self] in
                         self.navigationController?.popViewController(animated: true)
                     }

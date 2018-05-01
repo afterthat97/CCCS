@@ -206,7 +206,6 @@ class subViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func queryEvent(_ sender: UIButton) {
-        makeGetCheckInRecordCall()
         self.performSegue(withIdentifier: "segueToQuery", sender: self)
     }
     

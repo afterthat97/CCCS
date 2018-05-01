@@ -14,41 +14,11 @@ class Course {
     var credit : Int = 0
     var place : String = ""
     var teacher : String = ""
-    var started: Bool = false
+    var started : Bool = false
+    var start_time : String = "N/A"
 }
 
 var courses = [Course]()
-
-func makeGetCourseCall() {
-    courses.removeAll()
-    var todoEndpoint: String = "https://masterliu.net/getCourse.php"
-    if (user.type == "Student") {
-        todoEndpoint = todoEndpoint + "?sid=\(user.id)"
-    } else {
-        todoEndpoint = todoEndpoint + "?tid=\(user.id)"
-    }
-    let url = URL(string: todoEndpoint)
-    let urlRequest = URLRequest(url: url!)
-    let config = URLSessionConfiguration.default
-    let session = URLSession(configuration: config)
-    let task = session.dataTask(with: urlRequest) { (data, response, error) in
-        guard let responseData = data else { return }
-        do {
-            let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [[String : Any]];
-            for object in todo! {
-                let course : Course = Course()
-                course.id = Int((object["cid"] as? String)!)!
-                course.name = (object["name"] as? String)!
-                course.place = (object["place"] as? String)!
-                course.credit = Int((object["credit"] as? String)!)!
-                course.teacher = (object["teacher"] as? String)!
-                course.started = Int((object["started"] as? String)!)! == 1 ? true : false
-                courses.append(course)
-            }
-        } catch { return }
-    }
-    task.resume()
-}
 
 class courseTableViewController: UITableViewController {
  
@@ -60,13 +30,50 @@ class courseTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.courseTableView.reloadData()
+        makeGetCourseCall()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    func makeGetCourseCall() {
+        courses.removeAll()
+        var todoEndpoint: String = "https://masterliu.net/getCourse.php"
+        if (user.type == "Student") {
+            todoEndpoint = todoEndpoint + "?sid=\(user.id)"
+        } else {
+            todoEndpoint = todoEndpoint + "?tid=\(user.id)"
+        }
+        let url = URL(string: todoEndpoint)
+        let urlRequest = URLRequest(url: url!)
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: urlRequest) { (data, response, error) in
+            guard let responseData = data else { return }
+            do {
+                let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [[String : Any]];
+                for object in todo! {
+                    let course : Course = Course()
+                    course.id = Int((object["cid"] as? String)!)!
+                    course.name = (object["name"] as? String)!
+                    course.place = (object["place"] as? String)!
+                    course.credit = Int((object["credit"] as? String)!)!
+                    course.teacher = (object["teacher"] as? String)!
+                    course.started = Int((object["started"] as? String)!)! == 1 ? true : false
+                    if (course.started) {
+                        course.start_time = object["start_time"] as? String ?? "N/A"
+                    }
+                    courses.append(course)
+                }
+                DispatchQueue.main.async { [unowned self] in
+                    self.courseTableView.reloadData()
+                }
+            } catch { return }
+        }
+        task.resume()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -85,6 +92,7 @@ class courseTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        cell.accessoryType = .none
         if (indexPath.row == 0) {
             cell.textLabel?.text = "Teacher:"
             cell.detailTextLabel?.text = courses[indexPath.section].teacher
@@ -92,8 +100,8 @@ class courseTableViewController: UITableViewController {
             cell.textLabel?.text = "Place:"
             cell.detailTextLabel?.text = courses[indexPath.section].place
         } else if (indexPath.row == 2) {
-            cell.textLabel?.text = "More:"
-            cell.detailTextLabel?.text = ""
+            cell.textLabel?.text = "Status:"
+            cell.detailTextLabel?.text = courses[indexPath.section].started ? "Started" : "Not Started"
             cell.accessoryType = .disclosureIndicator
         }
         return cell

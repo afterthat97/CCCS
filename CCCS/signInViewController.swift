@@ -72,7 +72,6 @@ class signInViewController: UIViewController, UITextFieldDelegate {
                     user.name = (todo!["name"] as? String)!
                     user.gender = (todo!["gender"] as? String)!
                     user.register_date = (todo!["register_date"] as? String)!
-                    makeGetCourseCall()
                     DispatchQueue.main.async { [unowned self] in
                         self.performSegue(withIdentifier: "segueToMain", sender: self)
                     }
