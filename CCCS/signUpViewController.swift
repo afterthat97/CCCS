@@ -22,12 +22,10 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
         realnameTextField.delegate = self
         passwordTextField.delegate = self
         retypePasswordTextField.delegate = self
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -37,39 +35,38 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
     
     func showAlert(_ title : String, _ msg : String) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
-        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in }))
         DispatchQueue.main.async { [unowned self] in
             self.present(alert, animated: true, completion: nil)
         }
     }
     
-    func makeSignUpCall(_ username: String, _ password : String, _ type : String, _ sex : String, _ name : String) {
-        let todoEndpoint: String = "https://masterliu.net/signup.php?username=" + username + "&password=" + password + "&type=" + type + "&sex=" + sex + "&name=" + name;
+    func makeSignUpCall(_ username: String, _ password : String, _ type : String, _ gender : String, _ name : String) {
+        let todoEndpoint: String = "https://masterliu.net/signup.php?username=\(username)&password=\(password)&type=\(type)&gender=\(gender)&name=\(name)"
+        print(todoEndpoint)
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         let task = session.dataTask(with: urlRequest) { (data, response, error) in
             guard let responseData = data else {
-                self.showAlert("Error", "Failed to contact the server.")
+                self.showAlert("Error", "Data Error.")
                 return
             }
             do {
                 let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
                 let code = todo!["code"] as? Int
-                let error = todo!["error"] as? String
+                let info = todo!["info"] as? String
                 if (code == 0) {
                     DispatchQueue.main.async { [unowned self] in
-                        self.navigationController?.popToRootViewController(animated: true)
+                        self.navigationController?.popViewController(animated: true)
                     }
-                    self.showAlert("Success", "You have registered successfully.")
+                    self.showAlert("Success", info!)
                 } else {
-                    self.showAlert("Error", error!)
+                    self.showAlert("Error", info!)
                 }
             } catch {
-                self.showAlert("Error", "Failed to contact the server.")
+                self.showAlert("Error", "JSON Error.")
                 return
             }
         }
@@ -86,12 +83,11 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
         } else if (passwordTextField.text != retypePasswordTextField.text) {
             showAlert("Error", "Two passwords must match.")
         } else {
-            var type: String = "1";
-            var sex : String = "1";
-            if (roleSegmentedControl.selectedSegmentIndex == 0) { type = "0"; }
-            if (sexSegmentedControl.selectedSegmentIndex == 0) { sex = "0"; }
-            makeSignUpCall(usernameTextField.text!, passwordTextField.text!, type, sex, realnameTextField.text!);
+            var type: String = "Teacher";
+            var gender : String = "Female";
+            if (roleSegmentedControl.selectedSegmentIndex == 0) { type = "Student"; }
+            if (sexSegmentedControl.selectedSegmentIndex == 0) { gender = "Male"; }
+            makeSignUpCall(usernameTextField.text!, passwordTextField.text!, type, gender, realnameTextField.text!);
         }
     }
-    
 }

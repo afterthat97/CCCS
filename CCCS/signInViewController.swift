@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import LocalAuthentication
 
-class user {
-    static var username : String = ""
-    static var name : String = ""
-    static var type : Int = 0
-    static var sex : Int = 0
+class User {
+    var id : Int = 0
+    var username : String = ""
+    var password : String = ""
+    var name : String = ""
+    var type : String = ""
+    var gender : String = ""
+    var register_date : String = ""
 }
+
+var user : User = User()
 
 class signInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var signInButton: UIButton!
@@ -40,50 +46,69 @@ class signInViewController: UIViewController, UITextFieldDelegate {
     
     func showAlert(_ title : String, _ msg : String) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
-        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in }))
         DispatchQueue.main.async { [unowned self] in
             self.present(alert, animated: true, completion: nil)
         }
     }
     
-    func makeSignInCall(_ username: String, _ password : String, _ type : String) {
-        let todoEndpoint: String = "https://masterliu.net/signin.php?username=" + username + "&password=" + password + "&type=" + type;
+    func makeSignInCall() {
+        let todoEndpoint: String = "https://masterliu.net/signin.php?username=\(user.username)&password=\(user.password)&type=\(user.type)"
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         let task = session.dataTask(with: urlRequest) { (data, response, error) in
             guard let responseData = data else {
-                self.showAlert("Error", "Failed to contact the server.")
+                self.showAlert("Error", "Data error.")
                 return
             }
             do {
                 let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
                 let code = todo!["code"] as? Int
-                let error = todo!["error"] as? String
+                let info = todo!["info"] as? String
                 if (code == 0) {
-                    let name = todo!["name"] as? String
-                    let sex = todo!["sex"] as? Int
-                    user.name = name!
-                    user.sex = sex!
-
+                    user.id = (todo!["id"] as? Int)!
+                    user.name = (todo!["name"] as? String)!
+                    user.gender = (todo!["gender"] as? String)!
+                    user.register_date = (todo!["register_date"] as? String)!
+                    makeGetCourseCall()
                     DispatchQueue.main.async { [unowned self] in
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let meTableViewController =
-                            storyboard.instantiateViewController(withIdentifier: "tabBarController")
-                        self.navigationController?.present(meTableViewController, animated: true)
+                        self.performSegue(withIdentifier: "segueToMain", sender: self)
                     }
                 } else {
-                    self.showAlert("Error", error!)
+                    self.showAlert("Error", info!)
                 }
             } catch {
-                self.showAlert("Error", "Failed to contact the server.")
+                self.showAlert("Error", "JSON Error.")
                 return
             }
         }
         task.resume()
+    }
+    
+    func authenticateUser() {
+        let context = LAContext()
+        var error: NSError?
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Identification"
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
+                [unowned self] success, authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        self.makeSignInCall()
+                    } else {
+                        let ac = UIAlertController(title: "Error", message: "Authentication failed", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default))
+                        self.present(ac, animated: true)
+                    }
+                }
+            }
+        } else {
+            let ac = UIAlertController(title: "Touch ID not available", message: "Your device is not configured for Touch ID.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
     
     @IBAction func signIn(_ sender: UIButton) {
@@ -92,11 +117,13 @@ class signInViewController: UIViewController, UITextFieldDelegate {
         } else if (passwordTextField.text == "") {
             showAlert("Error", "Password cannot be empty.")
         } else {
-            var type: String = "1";
-            user.type = 1
-            if (roleSegmentedControl.selectedSegmentIndex == 0) { type = "0"; user.type = 0; }
+            user.type = "Teacher"
+            if (roleSegmentedControl.selectedSegmentIndex == 0) {
+                user.type = "Student"
+            }
             user.username = usernameTextField.text!
-            makeSignInCall(usernameTextField.text!, passwordTextField.text!, type)
+            user.password = passwordTextField.text!
+            authenticateUser()
         }
     }
 }
