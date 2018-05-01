@@ -8,14 +8,14 @@
 
 import UIKit
 
-class Checkin_record {
+class CheckinRecord {
     var name : String = ""
     var start_time : String = ""
     var checkin_time : String = ""
     var stat : String = ""
 }
 
-var checkin_records = [Checkin_record]()
+var checkinRecords = [CheckinRecord]()
 
 class queryTableViewController: UITableViewController {
 
@@ -23,7 +23,7 @@ class queryTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkin_records.removeAll()
+        checkinRecords.removeAll()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -36,7 +36,7 @@ class queryTableViewController: UITableViewController {
     }
 
     func makeGetCheckInRecordCall() {
-        checkin_records.removeAll()
+        var loadedCheckinRecords = [CheckinRecord]()
         var todoEndpoint: String = "https://masterliu.net/query.php?cid=\(courses[selectedCourse].id)"
         if (user.type == "Student") {
             todoEndpoint = todoEndpoint + "&sid=\(user.id)"
@@ -50,13 +50,14 @@ class queryTableViewController: UITableViewController {
             do {
                 let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [[String : Any]];
                 for object in todo! {
-                    let checkin_record: Checkin_record = Checkin_record()
-                    checkin_record.name = (object["name"] as? String)!
-                    checkin_record.start_time = (object["start_time"] as? String)!
-                    checkin_record.checkin_time = object["checkin_time"] as? String ?? "N/A"
-                    checkin_record.stat = (object["stat"] as? String)!
-                    checkin_records.append(checkin_record)
+                    let checkinRecord: CheckinRecord = CheckinRecord()
+                    checkinRecord.name = (object["name"] as? String)!
+                    checkinRecord.start_time = (object["start_time"] as? String)!
+                    checkinRecord.checkin_time = object["checkin_time"] as? String ?? "N/A"
+                    checkinRecord.stat = (object["stat"] as? String)!
+                    loadedCheckinRecords.append(checkinRecord)
                 }
+                checkinRecords = loadedCheckinRecords
                 DispatchQueue.main.async { [unowned self] in
                     self.checkinRecordTableView.reloadData()
                 }
@@ -69,7 +70,7 @@ class queryTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return checkin_records.count
+        return checkinRecords.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,16 +86,16 @@ class queryTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
         if (indexPath.row == 0) {
             cell.textLabel?.text = "Name:"
-            cell.detailTextLabel?.text = checkin_records[indexPath.section].name
+            cell.detailTextLabel?.text = checkinRecords[indexPath.section].name
         } else if (indexPath.row == 1) {
             cell.textLabel?.text = "Start time:"
-            cell.detailTextLabel?.text = checkin_records[indexPath.section].start_time
+            cell.detailTextLabel?.text = checkinRecords[indexPath.section].start_time
         } else if (indexPath.row == 2) {
             cell.textLabel?.text = "Checkin time:"
-            cell.detailTextLabel?.text = checkin_records[indexPath.section].checkin_time
+            cell.detailTextLabel?.text = checkinRecords[indexPath.section].checkin_time
         } else if (indexPath.row == 3) {
             cell.textLabel?.text = "Checkin status:"
-            cell.detailTextLabel?.text = checkin_records[indexPath.section].stat
+            cell.detailTextLabel?.text = checkinRecords[indexPath.section].stat
         }
         return cell
     }

@@ -38,7 +38,7 @@ class courseTableViewController: UITableViewController {
     }
 
     func makeGetCourseCall() {
-        courses.removeAll()
+        var loadedCourses = [Course]()
         var todoEndpoint: String = "https://masterliu.net/getCourse.php"
         if (user.type == "Student") {
             todoEndpoint = todoEndpoint + "?sid=\(user.id)"
@@ -64,8 +64,9 @@ class courseTableViewController: UITableViewController {
                     if (course.started) {
                         course.start_time = object["start_time"] as? String ?? "N/A"
                     }
-                    courses.append(course)
+                    loadedCourses.append(course)
                 }
+                courses = loadedCourses
                 DispatchQueue.main.async { [unowned self] in
                     self.courseTableView.reloadData()
                 }
@@ -87,11 +88,16 @@ class courseTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return courses[section].name
+        if (section < courses.count) {
+            return courses[section].name
+        } else {
+            return ""
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        if (indexPath.section >= courses.count) { return cell }
         cell.accessoryType = .none
         if (indexPath.row == 0) {
             cell.textLabel?.text = "Teacher:"
