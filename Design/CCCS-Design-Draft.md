@@ -79,9 +79,7 @@ This document can only be viewed by internal team members of CCCS.
 
 ### 1.8 Baseline
 
-Basically, the system should be able to deal with the check-in process. Three basic check-in status should be supported: `Normal`, `Late`, `Absent`. Students or teachers should be able to view their or their students' recent attendance.
-
-Other functions and performance requirements are additional.
+基线
 
 ## 2. References
 
