@@ -1,0 +1,51 @@
+CREATE TABLE Student (
+	sid INT NOT NULL AUTO_INCREMENT,
+	username VARCHAR(100) NOT NULL,
+	password VARCHAR(32) NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	gender VARCHAR(10) NOT NULL,
+	register_date DATE NOT NULL, 
+    	PRIMARY KEY (sid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE Teacher (
+	tid INT NOT NULL AUTO_INCREMENT,
+	username VARCHAR(100) NOT NULL,
+	password VARCHAR(32) NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	gender VARCHAR(10) NOT NULL,
+	register_date DATE NOT NULL,
+    	PRIMARY KEY (tid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE Course (
+	cid INT NOT NULL AUTO_INCREMENT,
+	tid INT NOT NULL,
+	name VARCHAR(50) NOT NULL,
+	place VARCHAR(50) NOT NULL,
+	credit INT NOT NULL,
+	started BOOL NOT NULL,
+	start_time DATETIME,
+	latitude DOUBLE,
+	longitude DOUBLE,
+	FOREIGN KEY (tid) REFERENCES Teacher(tid),
+	PRIMARY KEY (cid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE Choose (
+	sid INT NOT NULL,
+	cid INT NOT NULL,
+	FOREIGN KEY (sid) REFERENCES Student(sid),
+	FOREIGN KEY (cid) REFERENCES Course(cid),
+	PRIMARY KEY (sid, cid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE Checkin (
+	sid INT NOT NULL,
+	cid INT NOT NULL,
+	start_time DATETIME NOT NULL,
+	checkin_time DATETIME,
+	stat VARCHAR(20) NOT NULL,
+	FOREIGN KEY (sid) REFERENCES Student(sid),     	
+	FOREIGN KEY (cid) REFERENCES Course(cid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
