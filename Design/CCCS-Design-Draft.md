@@ -79,7 +79,7 @@ This document can only be viewed by internal team members of CCCS.
 
 ### 1.8 Baseline
 
-基线
+设计分析的基线是需求分析，需求分析的基线是立项报告。———— Doctor Bao
 
 ## 2. References
 
