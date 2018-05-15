@@ -66,12 +66,15 @@ class courseTableViewController: UITableViewController {
                     }
                     loadedCourses.append(course)
                 }
+                
                 courses = loadedCourses
+                
                 DispatchQueue.main.async { [unowned self] in
                     self.courseTableView.reloadData()
                 }
             } catch { return }
         }
+        
         task.resume()
     }
     
