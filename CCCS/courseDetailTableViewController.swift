@@ -36,7 +36,7 @@ class courseDetailTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 6
+        return 5
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,12 +53,9 @@ class courseDetailTableViewController: UITableViewController {
         } else if (indexPath.row == 3) {
             cell.textLabel?.text = "Credit:"
             cell.detailTextLabel?.text = String(courses[selectedCourse].credit)
-        } else if (indexPath.row == 4) {
-            cell.textLabel?.text = "Status:"
-            cell.detailTextLabel?.text = courses[selectedCourse].started ? "Started" : "Not Started"
-        } else if (indexPath.row == 5) {
-            cell.textLabel?.text = "Start time:"
-            cell.detailTextLabel?.text = courses[selectedCourse].start_time
+        } else {
+            cell.textLabel?.text = "Stat:"
+            cell.detailTextLabel?.text = courses[selectedCourse].started ? "Started" : "Not started"
         }
         return cell
     }

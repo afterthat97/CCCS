@@ -46,7 +46,8 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeStudentAddCourseCall(_ name : String, _ teacher : String) {
-        let todoEndpoint: String = "https://masterliu.net/addCourse.php?sid=\(user.id)&password=\(user.password)&name=\(name)&teacher=\(teacher)"
+        var todoEndpoint: String = "https://breeze.xin/addCourse.php?sid=\(user.id)&password=\(user.password)&name=\(name)&teacher=\(teacher)"
+        todoEndpoint = todoEndpoint.replacingOccurrences(of: " ", with: "+")
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
@@ -61,6 +62,7 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
                 let code = todo!["code"] as? Int
                 let info = todo!["info"] as? String
                 if (code == 0) {
+                    makeGetCourseCall()
                     DispatchQueue.main.async { [unowned self] in
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -77,7 +79,8 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeTeacherAddCourseCall(_ name : String, _ place : String, _ credit : String) {
-        let todoEndpoint: String = "https://masterliu.net/addCourse.php?tid=\(user.id)&password=\(user.password)&name=\(name)&place=\(place)&credit=\(credit)"
+        var todoEndpoint: String = "https://breeze.xin/addCourse.php?tid=\(user.id)&password=\(user.password)&name=\(name)&place=\(place)&credit=\(credit)"
+        todoEndpoint = todoEndpoint.replacingOccurrences(of: " ", with: "+")
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
@@ -92,6 +95,7 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
                 let code = todo!["code"] as? Int
                 let info = todo!["info"] as? String
                 if (code == 0) {
+                    makeGetCourseCall()
                     DispatchQueue.main.async { [unowned self] in
                         self.navigationController?.popViewController(animated: true)
                     }

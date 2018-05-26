@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62A909E720A5E3C700007335 /* teacherCheckTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A909E620A5E3C700007335 /* teacherCheckTableViewController.swift */; };
+		62A909E920A5E4B800007335 /* tempTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A909E820A5E4B800007335 /* tempTable.swift */; };
 		B829A2A020970FE600117383 /* courseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B829A29F20970FE600117383 /* courseTableViewController.swift */; };
 		B86E87412097002500EF096C /* addCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E87402097002500EF096C /* addCourseViewController.swift */; };
 		B8AD3A582090220A00198572 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AD3A572090220A00198572 /* AppDelegate.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		62A909E620A5E3C700007335 /* teacherCheckTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = teacherCheckTableViewController.swift; sourceTree = "<group>"; };
+		62A909E820A5E4B800007335 /* tempTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempTable.swift; sourceTree = "<group>"; };
 		B829A29F20970FE600117383 /* courseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = courseTableViewController.swift; sourceTree = "<group>"; };
 		B86E87402097002500EF096C /* addCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addCourseViewController.swift; sourceTree = "<group>"; };
 		B8AD3A542090220A00198572 /* CCCS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCCS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,9 +72,9 @@
 		B8AD3A562090220A00198572 /* CCCS */ = {
 			isa = PBXGroup;
 			children = (
+				B8AD3A592090220A00198572 /* signInViewController.swift */,
 				B8AD3A6F2090825B00198572 /* meTableViewController.swift */,
 				B8AD3A572090220A00198572 /* AppDelegate.swift */,
-				B8AD3A592090220A00198572 /* signInViewController.swift */,
 				B8AD3A5B2090220A00198572 /* Main.storyboard */,
 				B8FFA4DE2097785A00434962 /* queryTableViewController.swift */,
 				B8FFA4DC209773BF00434962 /* subViewController.swift */,
@@ -78,6 +82,8 @@
 				B829A29F20970FE600117383 /* courseTableViewController.swift */,
 				B86E87402097002500EF096C /* addCourseViewController.swift */,
 				B8AD3A6B20904B5100198572 /* signUpViewController.swift */,
+				62A909E820A5E4B800007335 /* tempTable.swift */,
+				62A909E620A5E3C700007335 /* teacherCheckTableViewController.swift */,
 				B8AD3A5E2090220A00198572 /* Assets.xcassets */,
 				B8AD3A602090220A00198572 /* LaunchScreen.storyboard */,
 				B8AD3A632090220A00198572 /* Info.plist */,
@@ -162,9 +168,11 @@
 				B8AD3A582090220A00198572 /* AppDelegate.swift in Sources */,
 				B8FFA4DB20976C5000434962 /* courseDetailTableViewController.swift in Sources */,
 				B8FFA4DF2097785A00434962 /* queryTableViewController.swift in Sources */,
+				62A909E720A5E3C700007335 /* teacherCheckTableViewController.swift in Sources */,
 				B86E87412097002500EF096C /* addCourseViewController.swift in Sources */,
 				B8AD3A6C20904B5100198572 /* signUpViewController.swift in Sources */,
 				B8AD3A702090825B00198572 /* meTableViewController.swift in Sources */,
+				62A909E920A5E4B800007335 /* tempTable.swift in Sources */,
 				B8FFA4DD209773BF00434962 /* subViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,7 +249,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -294,7 +302,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

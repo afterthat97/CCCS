@@ -53,7 +53,8 @@ class signInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeSignInCall() {
-        let todoEndpoint: String = "https://masterliu.net/signin.php?username=\(user.username)&password=\(user.password)&type=\(user.type)"
+        var todoEndpoint: String = "https://breeze.xin/signin.php?username=\(user.username)&password=\(user.password)&type=\(user.type)"
+        todoEndpoint = todoEndpoint.replacingOccurrences(of: " ", with: "+")
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
@@ -72,6 +73,7 @@ class signInViewController: UIViewController, UITextFieldDelegate {
                     user.name = (todo!["name"] as? String)!
                     user.gender = (todo!["gender"] as? String)!
                     user.register_date = (todo!["register_date"] as? String)!
+                    makeGetCourseCall()
                     DispatchQueue.main.async { [unowned self] in
                         self.performSegue(withIdentifier: "segueToMain", sender: self)
                     }
