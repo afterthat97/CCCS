@@ -1,31 +1,36 @@
 //
-//  signUpViewController.swift
+//  addQuestionViewController.swift
 //  CCCS
 //
-//  Created by Alfred Liu on 4/25/18.
+//  Created by 浦清风 on 5/14/18.
 //  Copyright © 2018 Alfred Liu. All rights reserved.
 //
 
 import UIKit
 
-class signUpViewController: UIViewController, UITextFieldDelegate {
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var realnameTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var retypePasswordTextField: UITextField!
-    @IBOutlet weak var roleSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var sexSegmentedControl: UISegmentedControl!
+class addQuestionViewController: UIViewController,UITextFieldDelegate{
+
     
+    @IBOutlet weak var questioncontent: UITextField!
+    @IBOutlet weak var Achoose: UITextField!
+    @IBOutlet weak var Bchoose: UITextField!
+    @IBOutlet weak var Cchoose: UITextField!
+    @IBOutlet weak var Dchoose: UITextField!
+    @IBOutlet weak var choose: UISegmentedControl!
     override func viewDidLoad() {
         super.viewDidLoad()
-        usernameTextField.delegate = self
-        realnameTextField.delegate = self
-        passwordTextField.delegate = self
-        retypePasswordTextField.delegate = self
+        questioncontent.delegate = self
+        Achoose.delegate = self
+        Bchoose.delegate = self
+        Cchoose.delegate = self
+        Dchoose.delegate = self
+        
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -40,9 +45,9 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
-    func makeSignUpCall(_ username: String, _ password : String, _ type : String, _ gender : String, _ name : String) {
-        let todoEndpoint: String = "https://breeze.xin/signup.php?username=\(username)&password=\(password)&type=\(type)&gender=\(gender)&name=\(name)"
+
+    func makeTeacherAddQuestionCall(_ content:String,_ Achoice:String,_ Bchoice:String,_ Cchoice:String,_ Dchoice:String,_ Choose:String) {
+        let todoEndpoint: String = "https://breeze.xin/addQuestion.php?tid=\(user.id)&password=\(user.password)&cid=\(courses[selectedCourse].id)&quescontent=\(content)&Achoice=\(Achoice)&Bchoice=\(Bchoice)&Cchoice=\(Cchoice)&Dchoice=\(Dchoice)&Choose=\(Choose)"
         print(todoEndpoint)
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
@@ -58,6 +63,7 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
                 let code = todo!["code"] as? Int
                 let info = todo!["info"] as? String
                 if (code == 0) {
+                    
                     DispatchQueue.main.async { [unowned self] in
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -72,22 +78,23 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
         }
         task.resume()
     }
-    
-    @IBAction func signUp(_ sender: UIButton) {
-        if (usernameTextField.text == "") {
-            showAlert("Error", "Username cannot be empty.")
-        } else if (realnameTextField.text == "") {
-            showAlert("Error", "Real name cannot be empty.")
-        } else if (passwordTextField.text == "") {
-            showAlert("Error", "Password cannot be empty.")
-        } else if (passwordTextField.text != retypePasswordTextField.text) {
-            showAlert("Error", "Two passwords must match.")
+    @IBAction func addquestion(_ sender: UIButton) {
+        
+        
+        if (questioncontent.text! == "") {
+            self.showAlert("Error", "Question description cannot be empty")
+        } else if (Achoose.text! == "") {
+            self.showAlert("Error", "At least two options!")
+        } else if (Bchoose.text! == "") {
+            self.showAlert("Error", "At least two options!")
         } else {
-            var type: String = "Teacher";
-            var gender : String = "Female";
-            if (roleSegmentedControl.selectedSegmentIndex == 0) { type = "Student"; }
-            if (sexSegmentedControl.selectedSegmentIndex == 0) { gender = "Male"; }
-            makeSignUpCall(usernameTextField.text!, passwordTextField.text!, type, gender, realnameTextField.text!);
+            var correct: String = "A";
+            
+            if (choose.selectedSegmentIndex == 1) { correct = "B"; }
+            if (choose.selectedSegmentIndex == 2) { correct = "C"; }
+            if (choose.selectedSegmentIndex == 3) { correct = "D"; }
+            
+            makeTeacherAddQuestionCall(questioncontent.text!, Achoose.text!, Bchoose.text!, Cchoose.text!, Dchoose.text!, correct)
         }
     }
 }

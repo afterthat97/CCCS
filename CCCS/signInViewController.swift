@@ -53,8 +53,9 @@ class signInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeSignInCall() {
-        let todoEndpoint: String = "https://masterliu.net/signin.php?username=\(user.username)&password=\(user.password)&type=\(user.type)"
+        let todoEndpoint: String = "https://breeze.xin/signin.php?username=\(user.username)&password=\(user.password)&type=\(user.type)"
         let url = URL(string: todoEndpoint)
+        
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
