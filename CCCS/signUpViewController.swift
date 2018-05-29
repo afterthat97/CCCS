@@ -42,7 +42,7 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeSignUpCall(_ username: String, _ password : String, _ type : String, _ gender : String, _ name : String) {
-        let todoEndpoint: String = "https://breeze.xin/signup.php?username=\(username)&password=\(password)&type=\(type)&gender=\(gender)&name=\(name)"
+        let todoEndpoint: String = "https://masterliu.net/signup.php?username=\(username)&password=\(password)&type=\(type)&gender=\(gender)&name=\(name)"
         print(todoEndpoint)
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)

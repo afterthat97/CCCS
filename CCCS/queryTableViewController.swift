@@ -37,7 +37,7 @@ class queryTableViewController: UITableViewController {
 
     func makeGetCheckInRecordCall() {
         var loadedCheckinRecords = [CheckinRecord]()
-        var todoEndpoint: String = "https://breeze.xin/query.php?cid=\(courses[selectedCourse].id)"
+        var todoEndpoint: String = "https://masterliu.net/query.php?cid=\(courses[selectedCourse].id)"
         if (user.type == "Student") {
             todoEndpoint = todoEndpoint + "&sid=\(user.id)"
         }

@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A803F37A20AE720C00628FFA /* subquesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A803F37920AE720C00628FFA /* subquesViewController.swift */; };
-		A8B7A05020AC5E79005C34F9 /* questionDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7A04D20AC5E79005C34F9 /* questionDetailTableViewController.swift */; };
-		A8B7A05120AC5E79005C34F9 /* QuestionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7A04E20AC5E79005C34F9 /* QuestionTableViewController.swift */; };
-		A8B7A05220AC5E79005C34F9 /* addQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7A04F20AC5E79005C34F9 /* addQuestionViewController.swift */; };
 		B829A2A020970FE600117383 /* courseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B829A29F20970FE600117383 /* courseTableViewController.swift */; };
 		B86E87412097002500EF096C /* addCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E87402097002500EF096C /* addCourseViewController.swift */; };
 		B8AD3A582090220A00198572 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AD3A572090220A00198572 /* AppDelegate.swift */; };
@@ -26,10 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A803F37920AE720C00628FFA /* subquesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subquesViewController.swift; sourceTree = "<group>"; };
-		A8B7A04D20AC5E79005C34F9 /* questionDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = questionDetailTableViewController.swift; path = ../../../code/cccs/cccs/CCCS/questionDetailTableViewController.swift; sourceTree = "<group>"; };
-		A8B7A04E20AC5E79005C34F9 /* QuestionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionTableViewController.swift; path = ../../../code/cccs/cccs/CCCS/QuestionTableViewController.swift; sourceTree = "<group>"; };
-		A8B7A04F20AC5E79005C34F9 /* addQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = addQuestionViewController.swift; path = ../../../code/cccs/cccs/CCCS/addQuestionViewController.swift; sourceTree = "<group>"; };
 		B829A29F20970FE600117383 /* courseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = courseTableViewController.swift; sourceTree = "<group>"; };
 		B86E87402097002500EF096C /* addCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addCourseViewController.swift; sourceTree = "<group>"; };
 		B8AD3A542090220A00198572 /* CCCS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCCS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,12 +72,8 @@
 				B8AD3A572090220A00198572 /* AppDelegate.swift */,
 				B8AD3A592090220A00198572 /* signInViewController.swift */,
 				B8AD3A5B2090220A00198572 /* Main.storyboard */,
-				A8B7A04E20AC5E79005C34F9 /* QuestionTableViewController.swift */,
-				A8B7A04F20AC5E79005C34F9 /* addQuestionViewController.swift */,
-				A8B7A04D20AC5E79005C34F9 /* questionDetailTableViewController.swift */,
 				B8FFA4DE2097785A00434962 /* queryTableViewController.swift */,
 				B8FFA4DC209773BF00434962 /* subViewController.swift */,
-				A803F37920AE720C00628FFA /* subquesViewController.swift */,
 				B8FFA4DA20976C5000434962 /* courseDetailTableViewController.swift */,
 				B829A29F20970FE600117383 /* courseTableViewController.swift */,
 				B86E87402097002500EF096C /* addCourseViewController.swift */,
@@ -171,16 +159,12 @@
 			files = (
 				B829A2A020970FE600117383 /* courseTableViewController.swift in Sources */,
 				B8AD3A5A2090220A00198572 /* signInViewController.swift in Sources */,
-				A8B7A05220AC5E79005C34F9 /* addQuestionViewController.swift in Sources */,
 				B8AD3A582090220A00198572 /* AppDelegate.swift in Sources */,
 				B8FFA4DB20976C5000434962 /* courseDetailTableViewController.swift in Sources */,
-				A8B7A05020AC5E79005C34F9 /* questionDetailTableViewController.swift in Sources */,
 				B8FFA4DF2097785A00434962 /* queryTableViewController.swift in Sources */,
 				B86E87412097002500EF096C /* addCourseViewController.swift in Sources */,
 				B8AD3A6C20904B5100198572 /* signUpViewController.swift in Sources */,
-				A803F37A20AE720C00628FFA /* subquesViewController.swift in Sources */,
 				B8AD3A702090825B00198572 /* meTableViewController.swift in Sources */,
-				A8B7A05120AC5E79005C34F9 /* QuestionTableViewController.swift in Sources */,
 				B8FFA4DD209773BF00434962 /* subViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,7 +307,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BU4S5J7V59;
 				INFOPLIST_FILE = CCCS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Alfred-Liu.CCCS";
@@ -338,7 +322,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BU4S5J7V59;
 				INFOPLIST_FILE = CCCS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Alfred-Liu.CCCS";

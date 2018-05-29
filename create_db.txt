@@ -49,9 +49,3 @@ CREATE TABLE Checkin (
 	FOREIGN KEY (sid) REFERENCES Student(sid),     	
 	FOREIGN KEY (cid) REFERENCES Course(cid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE Answer ( sid INT NOT NULL, cid INT NOT NULL, qid INT NOT NULL, Choose  varchar(3), FOREIGN KEY (sid) REFERENCES Student(sid), FOREIGN KEY (cid) REFERENCES Course(cid),  FOREIGN KEY (qid) REFERENCES Question(qid), PRIMARY KEY (qid,sid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE temp ( sid INT NOT NULL, cid INT NOT NULL, state VARCHAR(20) NOT NULL, reason VARCHAR(100) NOT NULL,  FOREIGN KEY (sid) REFERENCES Student(sid),        FOREIGN KEY (cid) REFERENCES Course(cid),  PRIMARY KEY (sid, cid) )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE Question ( qid INT NOT NULL AUTO_INCREMENT, tid INT NOT NULL, cid INT NOT NULL, questext varchar(100) NOT NULL, Achoice varchar(30) NOT NULL, Bchoice varchar(30), Cchoice varchar(30), Dchoice varchar(30), correct varchar(30) NOT NULL, PRIMARY KEY (qid), FOREIGN KEY (tid) REFERENCES Teacher(tid), FOREIGN KEY (cid) REFERENCES Course(cid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

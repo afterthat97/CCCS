@@ -46,7 +46,7 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeStudentAddCourseCall(_ name : String, _ teacher : String) {
-        let todoEndpoint: String = "https://breeze.xin/addCourse.php?sid=\(user.id)&password=\(user.password)&name=\(name)&teacher=\(teacher)"
+        let todoEndpoint: String = "https://masterliu.net/addCourse.php?sid=\(user.id)&password=\(user.password)&name=\(name)&teacher=\(teacher)"
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
@@ -69,6 +69,7 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
                     self.showAlert("Error", info!)
                 }
             } catch {
+                self.showAlert("Error", "JSON Error.")
                 return
             }
         }
@@ -76,7 +77,7 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeTeacherAddCourseCall(_ name : String, _ place : String, _ credit : String) {
-        let todoEndpoint: String = "https://breeze.xin/addCourse.php?tid=\(user.id)&password=\(user.password)&name=\(name)&place=\(place)&credit=\(credit)"
+        let todoEndpoint: String = "https://masterliu.net/addCourse.php?tid=\(user.id)&password=\(user.password)&name=\(name)&place=\(place)&credit=\(credit)"
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
