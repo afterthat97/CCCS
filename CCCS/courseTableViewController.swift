@@ -39,7 +39,7 @@ class courseTableViewController: UITableViewController {
 
     func makeGetCourseCall() {
         var loadedCourses = [Course]()
-        var todoEndpoint: String = "https://masterliu.net/getCourse.php"
+        var todoEndpoint: String = "https://breeze.xin/getCourse.php"
         if (user.type == "Student") {
             todoEndpoint = todoEndpoint + "?sid=\(user.id)"
         } else {
@@ -53,6 +53,7 @@ class courseTableViewController: UITableViewController {
             guard let responseData = data else { return }
             do {
                 let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [[String : Any]];
+                
                 for object in todo! {
                     let course : Course = Course()
                     course.id = Int((object["cid"] as? String)!)!

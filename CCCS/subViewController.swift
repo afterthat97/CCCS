@@ -14,6 +14,8 @@ class subViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var mainButton: UIButton!
     @IBOutlet weak var queryButton: UIButton!
+    @IBOutlet weak var questionButton: UIButton!
+    
     
     var locationManager: CLLocationManager = CLLocationManager()
     var cntLocation: CLLocation!
@@ -55,7 +57,7 @@ class subViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func makeCheckInCall(_ latitude: String, _ longitude : String) {
-        let todoEndpoint: String = "https://masterliu.net/checkin.php?sid=\(user.id)&password=\(user.password)&cid=\(courses[selectedCourse].id)&latitude=\(latitude)&longitude=\(longitude)"
+        let todoEndpoint: String = "https://breeze.xin/checkin.php?sid=\(user.id)&password=\(user.password)&cid=\(courses[selectedCourse].id)&latitude=\(latitude)&longitude=\(longitude)"
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
@@ -88,7 +90,7 @@ class subViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func makeStartClassCall(_ latitude: String, _ longitude : String) {
-        let todoEndpoint: String = "https://masterliu.net/startClass.php?tid=\(user.id)&password=\(user.password)&cid=\(courses[selectedCourse].id)&latitude=\(latitude)&longitude=\(longitude)"
+        let todoEndpoint: String = "https://breeze.xin/startClass.php?tid=\(user.id)&password=\(user.password)&cid=\(courses[selectedCourse].id)&latitude=\(latitude)&longitude=\(longitude)"
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
@@ -121,7 +123,7 @@ class subViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func makeStopClassCall() {
-        let todoEndpoint: String = "https://masterliu.net/stopClass.php?tid=\(user.id)&password=\(user.password)&cid=\(courses[selectedCourse].id)"
+        let todoEndpoint: String = "https://breeze.xin/stopClass.php?tid=\(user.id)&password=\(user.password)&cid=\(courses[selectedCourse].id)"
         let url = URL(string: todoEndpoint)
         let urlRequest = URLRequest(url: url!)
         let config = URLSessionConfiguration.default
@@ -208,5 +210,9 @@ class subViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func queryEvent(_ sender: UIButton) {
         self.performSegue(withIdentifier: "segueToQuery", sender: self)
     }
+    @IBAction func questionEvent(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "segueToQuestion", sender: self)
+    }
+    
     
 }
