@@ -27,9 +27,9 @@
 
 /* Begin PBXFileReference section */
 		A803F37920AE720C00628FFA /* subquesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subquesViewController.swift; sourceTree = "<group>"; };
-		A8B7A04D20AC5E79005C34F9 /* questionDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = questionDetailTableViewController.swift; path = ../../../code/cccs/cccs/CCCS/questionDetailTableViewController.swift; sourceTree = "<group>"; };
-		A8B7A04E20AC5E79005C34F9 /* QuestionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuestionTableViewController.swift; path = ../../../code/cccs/cccs/CCCS/QuestionTableViewController.swift; sourceTree = "<group>"; };
-		A8B7A04F20AC5E79005C34F9 /* addQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = addQuestionViewController.swift; path = ../../../code/cccs/cccs/CCCS/addQuestionViewController.swift; sourceTree = "<group>"; };
+		A8B7A04D20AC5E79005C34F9 /* questionDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = questionDetailTableViewController.swift; sourceTree = "<group>"; };
+		A8B7A04E20AC5E79005C34F9 /* QuestionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableViewController.swift; sourceTree = "<group>"; };
+		A8B7A04F20AC5E79005C34F9 /* addQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addQuestionViewController.swift; sourceTree = "<group>"; };
 		B829A29F20970FE600117383 /* courseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = courseTableViewController.swift; sourceTree = "<group>"; };
 		B86E87402097002500EF096C /* addCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addCourseViewController.swift; sourceTree = "<group>"; };
 		B8AD3A542090220A00198572 /* CCCS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCCS.app; sourceTree = BUILT_PRODUCTS_DIR; };
