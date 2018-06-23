@@ -9,10 +9,10 @@
 import UIKit
 
 class addCourseViewController: UIViewController, UITextFieldDelegate {
-
     @IBOutlet weak var courseNameTextField: UITextField!
     @IBOutlet weak var creditTextField: UITextField!
     @IBOutlet weak var placeTextField: UITextField!
+    @IBOutlet weak var mainButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +22,11 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
         placeTextField.delegate = self
         
         if (user.type == "Student") {
-            creditTextField.placeholder = "Teacher Name";
-            creditTextField.keyboardType = UIKeyboardType(rawValue: 1)!;
-            placeTextField.isHidden = true;
+            self.navigationItem.title = "Select Course"
+            creditTextField.placeholder = "Teacher Name"
+            creditTextField.keyboardType = UIKeyboardType(rawValue: 1)!
+            placeTextField.isHidden = true
+            mainButton.setTitle("Select", for: .normal)
         }
     }
 
@@ -45,30 +47,29 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func makeStudentAddCourseCall(_ name : String, _ teacher : String) {
-        let todoEndpoint: String = "https://breeze.xin/addCourse.php?sid=\(user.id)&password=\(user.password)&name=\(name)&teacher=\(teacher)"
-        let url = URL(string: todoEndpoint)
-        let urlRequest = URLRequest(url: url!)
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: urlRequest) { (data, response, error) in
-            guard let responseData = data else {
-                self.showAlert("Error", "Data Error.")
+    func makeStudentSelectCourseCall(_ name : String, _ teacher : String) {
+        let urlRequest = URLRequest(url: URL(string: "https://masterliu.net/cccs/course/selectCourse.php?sid=\(user.id)&password=\(user.password)&name=\(name)&teacher=\(teacher)".replacingOccurrences(of: " ", with: "+"))!)
+        let urlConfig = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: urlConfig)
+        let task = urlSession.dataTask(with: urlRequest) { (responseData, response, error) in
+            guard let rawData = responseData else {
+                self.showAlert("Error", "Data error.")
                 return
             }
             do {
-                let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
-                let code = todo!["code"] as? Int
-                let info = todo!["info"] as? String
+                let data = try JSONSerialization.jsonObject(with: rawData, options: []) as! [String : Any]
+                let code = data["code"] as! Int
+                let info = data["info"] as! String
                 if (code == 0) {
                     DispatchQueue.main.async { [unowned self] in
                         self.navigationController?.popViewController(animated: true)
                     }
-                    self.showAlert("Success", info!)
+                    self.showAlert("Success", info)
                 } else {
-                    self.showAlert("Error", info!)
+                    self.showAlert("Error", info)
                 }
             } catch {
+                self.showAlert("Error", "JSON Error.")
                 return
             }
         }
@@ -76,20 +77,18 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeTeacherAddCourseCall(_ name : String, _ place : String, _ credit : String) {
-        let todoEndpoint: String = "https://breeze.xin/addCourse.php?tid=\(user.id)&password=\(user.password)&name=\(name)&place=\(place)&credit=\(credit)"
-        let url = URL(string: todoEndpoint)
-        let urlRequest = URLRequest(url: url!)
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: urlRequest) { (data, response, error) in
-            guard let responseData = data else {
-                self.showAlert("Error", "Data Error.")
+        let urlRequest = URLRequest(url: URL(string: "https://masterliu.net/cccs/course/addCourse.php?tid=\(user.id)&password=\(user.password)&name=\(name)&place=\(place)&credit=\(credit)".replacingOccurrences(of: " ", with: "+"))!)
+        let urlConfig = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: urlConfig)
+        let task = urlSession.dataTask(with: urlRequest) { (responseData, response, error) in
+            guard let rawData = responseData else {
+                self.showAlert("Error", "Data error.")
                 return
             }
             do {
-                let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
-                let code = todo!["code"] as? Int
-                let info = todo!["info"] as? String
+                let data = try JSONSerialization.jsonObject(with: rawData, options: []) as? [String : Any]
+                let code = data!["code"] as? Int
+                let info = data!["info"] as? String
                 if (code == 0) {
                     DispatchQueue.main.async { [unowned self] in
                         self.navigationController?.popViewController(animated: true)
@@ -114,7 +113,7 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
         } else if (placeTextField.isHidden == false && placeTextField.text! == "") {
             self.showAlert("Error", "Place cannot be empty")
         } else if (user.type == "Student") {
-            makeStudentAddCourseCall(courseNameTextField.text!, creditTextField.text!)
+            makeStudentSelectCourseCall(courseNameTextField.text!, creditTextField.text!)
         } else {
             makeTeacherAddCourseCall(courseNameTextField.text!, placeTextField.text!, creditTextField.text!)
         }

@@ -42,28 +42,25 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeSignUpCall(_ username: String, _ password : String, _ type : String, _ gender : String, _ name : String) {
-        let todoEndpoint: String = "https://breeze.xin/signup.php?username=\(username)&password=\(password)&type=\(type)&gender=\(gender)&name=\(name)"
-        print(todoEndpoint)
-        let url = URL(string: todoEndpoint)
-        let urlRequest = URLRequest(url: url!)
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: urlRequest) { (data, response, error) in
-            guard let responseData = data else {
-                self.showAlert("Error", "Data Error.")
+        let urlRequest = URLRequest(url: URL(string: "https://masterliu.net/cccs/signin/signup.php?username=\(username)&password=\(password)&type=\(type)&gender=\(gender)&name=\(name)".replacingOccurrences(of: " ", with: "+"))!)
+        let urlConfig = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: urlConfig)
+        let task = urlSession.dataTask(with: urlRequest) { (responseData, response, error) in
+            guard let rawData = responseData else {
+                self.showAlert("Error", "Data error.")
                 return
             }
             do {
-                let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
-                let code = todo!["code"] as? Int
-                let info = todo!["info"] as? String
+                let data = try JSONSerialization.jsonObject(with: rawData, options: []) as! [String : Any]
+                let code = data["code"] as! Int
+                let info = data["info"] as! String
                 if (code == 0) {
                     DispatchQueue.main.async { [unowned self] in
                         self.navigationController?.popViewController(animated: true)
                     }
-                    self.showAlert("Success", info!)
+                    self.showAlert("Success", info)
                 } else {
-                    self.showAlert("Error", info!)
+                    self.showAlert("Error", info)
                 }
             } catch {
                 self.showAlert("Error", "JSON Error.")

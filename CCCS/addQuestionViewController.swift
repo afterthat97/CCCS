@@ -2,35 +2,38 @@
 //  addQuestionViewController.swift
 //  CCCS
 //
-//  Created by 浦清风 on 5/14/18.
+//  Created by Alfred Liu on 5/14/18.
 //  Copyright © 2018 Alfred Liu. All rights reserved.
 //
 
 import UIKit
 
-class addQuestionViewController: UIViewController,UITextFieldDelegate{
+class addQuestionViewController: UIViewController, UITextFieldDelegate {
+    @IBOutlet weak var questionContentTextField: UITextField!
+    @IBOutlet weak var optionATextField: UITextField!
+    @IBOutlet weak var optionBTextField: UITextField!
+    @IBOutlet weak var optionCTextField: UITextField!
+    @IBOutlet weak var optionDTextField: UITextField!
+    @IBOutlet weak var chooseSegmentedControl: UISegmentedControl!
 
-    
-    @IBOutlet weak var questioncontent: UITextField!
-    @IBOutlet weak var Achoose: UITextField!
-    @IBOutlet weak var Bchoose: UITextField!
-    @IBOutlet weak var Cchoose: UITextField!
-    @IBOutlet weak var Dchoose: UITextField!
-    @IBOutlet weak var choose: UISegmentedControl!
     override func viewDidLoad() {
         super.viewDidLoad()
-        questioncontent.delegate = self
-        Achoose.delegate = self
-        Bchoose.delegate = self
-        Cchoose.delegate = self
-        Dchoose.delegate = self
-        
-        // Do any additional setup after loading the view.
+        questionContentTextField.delegate = self
+        optionATextField.delegate = self
+        optionBTextField.delegate = self
+        optionCTextField.delegate = self
+        optionDTextField.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if (user.type == "Teacher" && courses[selectedCourse].started == false) {
+            showAlert("Hint", "Class not started, you cannot raise questions.")
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -46,30 +49,36 @@ class addQuestionViewController: UIViewController,UITextFieldDelegate{
         }
     }
 
-    func makeTeacherAddQuestionCall(_ content:String,_ Achoice:String,_ Bchoice:String,_ Cchoice:String,_ Dchoice:String,_ Choose:String) {
-        let todoEndpoint: String = "https://breeze.xin/addQuestion.php?tid=\(user.id)&password=\(user.password)&cid=\(courses[selectedCourse].id)&quescontent=\(content)&Achoice=\(Achoice)&Bchoice=\(Bchoice)&Cchoice=\(Cchoice)&Dchoice=\(Dchoice)&Choose=\(Choose)"
-        print(todoEndpoint)
-        let url = URL(string: todoEndpoint)
-        let urlRequest = URLRequest(url: url!)
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: urlRequest) { (data, response, error) in
-            guard let responseData = data else {
-                self.showAlert("Error", "Data Error.")
+    func makeAddQuestionCall(_ content : String, _ optionA : String, _ optionB : String, _ optionC : String, _ optionD : String, _ answer : String) {
+        let urlRequest = URLRequest(url: URL(string: "https://masterliu.net/cccs/question/teacher/addQuestion.php?tid=\(user.id)&password=\(user.password)&cid=\(courses[selectedCourse].id)&content=\(content)&optionA=\(optionA)&optionB=\(optionB)&optionC=\(optionC)&optionD=\(optionD)&answer=\(answer)".replacingOccurrences(of: " ", with: "+"))!)
+        let urlConfig = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: urlConfig)
+        let task = urlSession.dataTask(with: urlRequest) { (responseData, response, error) in
+            guard let rawData = responseData else {
+                self.showAlert("Error", "Data error.")
                 return
             }
             do {
-                let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
-                let code = todo!["code"] as? Int
-                let info = todo!["info"] as? String
+                let data = try JSONSerialization.jsonObject(with: rawData, options: []) as! [String : Any]
+                let code = data["code"] as! Int
+                let info = data["info"] as! String
                 if (code == 0) {
-                    
+                    let newQuestion : Question = Question()
+                    newQuestion.id = Int(data["qid"] as! String)!
+                    newQuestion.raised_time = data["raised_time"] as! String
+                    newQuestion.content = content
+                    newQuestion.optionA = optionA
+                    newQuestion.optionB = optionB
+                    newQuestion.optionC = optionC
+                    newQuestion.optionD = optionD
+                    newQuestion.answer = answer
+                    questions.append(newQuestion)
                     DispatchQueue.main.async { [unowned self] in
                         self.navigationController?.popViewController(animated: true)
                     }
-                    self.showAlert("Success", info!)
+                    self.showAlert("Success", info)
                 } else {
-                    self.showAlert("Error", info!)
+                    self.showAlert("Error", info)
                 }
             } catch {
                 self.showAlert("Error", "JSON Error.")
@@ -78,23 +87,24 @@ class addQuestionViewController: UIViewController,UITextFieldDelegate{
         }
         task.resume()
     }
-    @IBAction func addquestion(_ sender: UIButton) {
-        
-        
-        if (questioncontent.text! == "") {
-            self.showAlert("Error", "Question description cannot be empty")
-        } else if (Achoose.text! == "") {
-            self.showAlert("Error", "At least two options!")
-        } else if (Bchoose.text! == "") {
-            self.showAlert("Error", "At least two options!")
+    
+    @IBAction func raiseQuestion(_ sender: UIButton) {
+        if (questionContentTextField.text! == "") {
+            self.showAlert("Error", "Question description cannot be empty!")
+        } else if (optionATextField.text! == "") {
+            self.showAlert("Error", "Option A cannot be empty!")
+        } else if (optionBTextField.text! == "") {
+            self.showAlert("Error", "Option B cannot be empty")
+        } else if (optionCTextField.text! == "") {
+            self.showAlert("Error", "Optino C cannot be empty!")
+        } else if (optionDTextField.text! == "") {
+            self.showAlert("Error", "Option D cannot be empty!")
         } else {
-            var correct: String = "A";
-            
-            if (choose.selectedSegmentIndex == 1) { correct = "B"; }
-            if (choose.selectedSegmentIndex == 2) { correct = "C"; }
-            if (choose.selectedSegmentIndex == 3) { correct = "D"; }
-            
-            makeTeacherAddQuestionCall(questioncontent.text!, Achoose.text!, Bchoose.text!, Cchoose.text!, Dchoose.text!, correct)
+            var answer: String = "A";
+            if (chooseSegmentedControl.selectedSegmentIndex == 1) { answer = "B"; }
+            if (chooseSegmentedControl.selectedSegmentIndex == 2) { answer = "C"; }
+            if (chooseSegmentedControl.selectedSegmentIndex == 3) { answer = "D"; }
+            makeAddQuestionCall(questionContentTextField.text!, optionATextField.text!, optionBTextField.text!, optionCTextField.text!, optionDTextField.text!, answer)
         }
     }
 }

@@ -11,8 +11,8 @@ import UIKit
 var selectedCourse: Int = 0
 
 class courseDetailTableViewController: UITableViewController {
-
     @IBOutlet var courseDetailTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = courses[selectedCourse].name
@@ -30,33 +30,37 @@ class courseDetailTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        // return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 6
+        // return the number of rows
+        return 7
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        cell.selectionStyle = .none
         if (indexPath.row == 0) {
             cell.textLabel?.text = "Name:"
             cell.detailTextLabel?.text = courses[selectedCourse].name
         } else if (indexPath.row == 1) {
             cell.textLabel?.text = "Teacher:"
-            cell.detailTextLabel?.text = courses[selectedCourse].teacher
+            cell.detailTextLabel?.text = courses[selectedCourse].teacherName
         } else if (indexPath.row == 2) {
+            cell.textLabel?.text = "Gender:"
+            cell.detailTextLabel?.text = courses[selectedCourse].teacherGender
+        } else if (indexPath.row == 3) {
             cell.textLabel?.text = "Place:"
             cell.detailTextLabel?.text = courses[selectedCourse].place
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             cell.textLabel?.text = "Credit:"
             cell.detailTextLabel?.text = String(courses[selectedCourse].credit)
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             cell.textLabel?.text = "Status:"
             cell.detailTextLabel?.text = courses[selectedCourse].started ? "Started" : "Not Started"
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 6) {
             cell.textLabel?.text = "Start time:"
             cell.detailTextLabel?.text = courses[selectedCourse].start_time
         }

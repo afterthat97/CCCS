@@ -2,16 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>I need this.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>I need this.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>I need this.</string>
-	<key>NSLocationUsageDescription</key>
-	<string>I need this.</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<key>CFBundleDisplayName</key>
+	<string>CCCS</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -26,8 +18,18 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>I need this.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>I need this.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>I need this.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>I need this.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

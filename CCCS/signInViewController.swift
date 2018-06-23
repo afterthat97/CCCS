@@ -31,12 +31,10 @@ class signInViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         usernameTextField.delegate = self
         passwordTextField.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -52,32 +50,69 @@ class signInViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func makeSignInCall() {
-        let todoEndpoint: String = "https://breeze.xin/signin.php?username=\(user.username)&password=\(user.password)&type=\(user.type)"
-        let url = URL(string: todoEndpoint)
-        
-        let urlRequest = URLRequest(url: url!)
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: urlRequest) { (data, response, error) in
-            guard let responseData = data else {
+    func makeGetCourseCall() {
+        let urlRequest = URLRequest(url: URL(string: "https://masterliu.net/cccs/course/getCourse.php?id=\(user.id)&type=\(user.type)".replacingOccurrences(of: " ", with: "+"))!)
+        let urlConfig = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: urlConfig)
+        let task = urlSession.dataTask(with: urlRequest) { (responseData, response, error) in
+            guard let rawData = responseData else {
                 self.showAlert("Error", "Data error.")
                 return
             }
             do {
-                let todo = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
-                let code = todo!["code"] as? Int
-                let info = todo!["info"] as? String
+                let data = try JSONSerialization.jsonObject(with: rawData, options: []) as! [[String : Any]]
+                var loadedCourses = [Course]()
+                for object in data {
+                    let course : Course = Course()
+                    course.id = Int(object["cid"] as! String)!
+                    course.name = (object["name"] as! String)
+                    course.place = (object["place"] as! String)
+                    course.credit = Int(object["credit"] as! String)!
+                    course.teacherName = (object["teacherName"] as! String)
+                    course.teacherGender = (object["teacherGender"] as! String)
+                    course.started = Int((object["started"] as! String))! == 1 ? true : false
+                    if (course.started) {
+                        course.start_time = (object["start_time"] as! String)
+                    } else {
+                        course.start_time = "N/A"
+                    }
+                    loadedCourses.append(course)
+                }
+                courses = loadedCourses
+                DispatchQueue.main.async { [unowned self] in
+                    self.performSegue(withIdentifier: "segueToMain", sender: self)
+                }
+            } catch {
+                self.showAlert("Error", "JSON Error.")
+                return
+            }
+        }
+        task.resume()
+    }
+    
+    func makeSignInCall() {
+        let urlRequest = URLRequest(url: URL(string: "https://masterliu.net/cccs/signin/signin.php?username=\(user.username)&password=\(user.password)&type=\(user.type)".replacingOccurrences(of: " ", with: "+"))!)
+        let urlConfig = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: urlConfig)
+        let task = urlSession.dataTask(with: urlRequest) { (responseData, response, error) in
+            guard let rawData = responseData else {
+                self.showAlert("Error", "Data error.")
+                return
+            }
+            do {
+                let data = try JSONSerialization.jsonObject(with: rawData, options: []) as! [String : Any]
+                let code = data["code"] as! Int
                 if (code == 0) {
-                    user.id = (todo!["id"] as? Int)!
-                    user.name = (todo!["name"] as? String)!
-                    user.gender = (todo!["gender"] as? String)!
-                    user.register_date = (todo!["register_date"] as? String)!
+                    user.id = Int((data["id"] as! String))!
+                    user.name = (data["name"] as! String)
+                    user.gender = (data["gender"] as! String)
+                    user.register_date = (data["register_date"] as! String)
                     DispatchQueue.main.async { [unowned self] in
-                        self.performSegue(withIdentifier: "segueToMain", sender: self)
+                        self.makeGetCourseCall()
                     }
                 } else {
-                    self.showAlert("Error", info!)
+                    let info = data["info"] as! String
+                    self.showAlert("Error", info)
                 }
             } catch {
                 self.showAlert("Error", "JSON Error.")
@@ -95,19 +130,13 @@ class signInViewController: UIViewController, UITextFieldDelegate {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
                 [unowned self] success, authenticationError in
                 DispatchQueue.main.async {
-                    if success {
+                    if (success) {
                         self.makeSignInCall()
-                    } else {
-                        let ac = UIAlertController(title: "Error", message: "Authentication failed", preferredStyle: .alert)
-                        ac.addAction(UIAlertAction(title: "OK", style: .default))
-                        self.present(ac, animated: true)
                     }
                 }
             }
         } else {
-            let ac = UIAlertController(title: "Touch ID not available", message: "Your device is not configured for Touch ID.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+            self.showAlert("Touch ID not available", "Your device is not configured for Touch ID.")
         }
     }
     

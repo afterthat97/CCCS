@@ -5,7 +5,7 @@ CREATE TABLE Student (
 	name VARCHAR(100) NOT NULL,
 	gender VARCHAR(10) NOT NULL,
 	register_date DATE NOT NULL, 
-    	PRIMARY KEY (sid)
+	PRIMARY KEY (sid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Teacher (
@@ -15,7 +15,7 @@ CREATE TABLE Teacher (
 	name VARCHAR(100) NOT NULL,
 	gender VARCHAR(10) NOT NULL,
 	register_date DATE NOT NULL,
-    	PRIMARY KEY (tid)
+	PRIMARY KEY (tid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Course (
@@ -25,14 +25,21 @@ CREATE TABLE Course (
 	place VARCHAR(50) NOT NULL,
 	credit INT NOT NULL,
 	started BOOL NOT NULL,
-	start_time DATETIME,
-	latitude DOUBLE,
-	longitude DOUBLE,
 	FOREIGN KEY (tid) REFERENCES Teacher(tid),
 	PRIMARY KEY (cid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE Choose (
+CREATE TABLE Class (
+	lid INT NOT NULL AUTO_INCREMENT,
+	cid INT NOT NULL,
+	start_time DATETIME,
+	latitude DOUBLE,
+	longitude DOUBLE,
+	FOREIGN KEY (cid) REFERENCES Course(cid),
+	PRIMARY KEY (lid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE StudentCourse (
 	sid INT NOT NULL,
 	cid INT NOT NULL,
 	FOREIGN KEY (sid) REFERENCES Student(sid),
@@ -40,18 +47,36 @@ CREATE TABLE Choose (
 	PRIMARY KEY (sid, cid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE Checkin (
+CREATE TABLE StudentClass (
 	sid INT NOT NULL,
-	cid INT NOT NULL,
-	start_time DATETIME NOT NULL,
+	lid INT NOT NULL,
 	checkin_time DATETIME,
 	stat VARCHAR(20) NOT NULL,
-	FOREIGN KEY (sid) REFERENCES Student(sid),     	
-	FOREIGN KEY (cid) REFERENCES Course(cid)
+	FOREIGN KEY (sid) REFERENCES Student(sid),
+	FOREIGN KEY (lid) REFERENCES Class(lid),
+	PRIMARY KEY (sid, lid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE Answer ( sid INT NOT NULL, cid INT NOT NULL, qid INT NOT NULL, Choose  varchar(3), FOREIGN KEY (sid) REFERENCES Student(sid), FOREIGN KEY (cid) REFERENCES Course(cid),  FOREIGN KEY (qid) REFERENCES Question(qid), PRIMARY KEY (qid,sid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE Question (
+	qid INT NOT NULL AUTO_INCREMENT,
+	cid INT NOT NULL,
+	raised_time DATETIME NOT NULL,
+	content varchar(100) NOT NULL,
+	optionA varchar(100) NOT NULL,
+	optionB varchar(100) NOT NULL,
+	optionC varchar(100) NOT NULL,
+	optionD varchar(100) NOT NULL,
+	answer  varchar(1) NOT NULL,
+	FOREIGN KEY (cid) REFERENCES Course(cid),
+	PRIMARY KEY (qid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE temp ( sid INT NOT NULL, cid INT NOT NULL, state VARCHAR(20) NOT NULL, reason VARCHAR(100) NOT NULL,  FOREIGN KEY (sid) REFERENCES Student(sid),        FOREIGN KEY (cid) REFERENCES Course(cid),  PRIMARY KEY (sid, cid) )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE StudentQuestion (
+	sid INT NOT NULL,
+	qid INT NOT NULL,
+	answer varchar(1),
+	FOREIGN KEY (sid) REFERENCES Student(sid),
+	FOREIGN KEY (qid) REFERENCES Question(qid),
+	PRIMARY KEY (sid, qid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE Question ( qid INT NOT NULL AUTO_INCREMENT, tid INT NOT NULL, cid INT NOT NULL, questext varchar(100) NOT NULL, Achoice varchar(30) NOT NULL, Bchoice varchar(30), Cchoice varchar(30), Dchoice varchar(30), correct varchar(30) NOT NULL, PRIMARY KEY (qid), FOREIGN KEY (tid) REFERENCES Teacher(tid), FOREIGN KEY (cid) REFERENCES Course(cid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
