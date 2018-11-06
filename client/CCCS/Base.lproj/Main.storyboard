@@ -472,12 +472,11 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fKp-DH-XVb">
-                                <rect key="frame" x="0.0" y="64" width="320" height="216"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NJ3-LM-Wwd">
+                                <rect key="frame" x="0.0" y="64" width="320" height="235"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Mf-Ln-m7J">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Mf-Ln-m7J">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="235"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reuseIdentifier" textLabel="DE4-vd-rlj" detailTextLabel="Zcn-mz-lGT" style="IBUITableViewCellStyleValue1" id="D8Y-Lz-h9M">
@@ -507,11 +506,17 @@
                                         </prototypes>
                                     </tableView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="235" id="y5S-WS-oqp"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ich-yP-BqU" firstAttribute="bottom" secondItem="BCi-BJ-CWk" secondAttribute="bottom" constant="50" id="1TO-wG-1Fq"/>
+                            <constraint firstItem="NJ3-LM-Wwd" firstAttribute="top" secondItem="Ich-yP-BqU" secondAttribute="top" id="3hZ-LY-kdZ"/>
+                            <constraint firstItem="NJ3-LM-Wwd" firstAttribute="trailing" secondItem="Ich-yP-BqU" secondAttribute="trailing" id="A7W-X9-YZb"/>
+                            <constraint firstItem="NJ3-LM-Wwd" firstAttribute="leading" secondItem="Ich-yP-BqU" secondAttribute="leading" id="To8-2y-ySC"/>
                             <constraint firstItem="BCi-BJ-CWk" firstAttribute="leading" secondItem="Ich-yP-BqU" secondAttribute="leading" constant="10" id="n2G-l0-R85"/>
                             <constraint firstItem="Ich-yP-BqU" firstAttribute="trailing" secondItem="BCi-BJ-CWk" secondAttribute="trailing" constant="10" id="oq2-Uf-T4a"/>
                         </constraints>
