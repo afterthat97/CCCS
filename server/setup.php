@@ -69,9 +69,9 @@ if (!mysqli_query($conn, $query)) {
     $query = "CREATE TABLE Course (".
         "cid INT NOT NULL AUTO_INCREMENT,".
         "tid INT NOT NULL,".
-		"name VARCHAR(100) NOT NULL,".
-		"credit INT NOT NULL,".
-		"place VARCHAR(100) NOT NULL,".
+        "name VARCHAR(100) NOT NULL,".
+        "credit INT NOT NULL,".
+	"place VARCHAR(100) NOT NULL,".
         "FOREIGN KEY (tid) REFERENCES Teacher(tid),".
         "PRIMARY KEY (cid)".
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
