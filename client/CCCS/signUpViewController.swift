@@ -42,8 +42,8 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeSignUpCall(_ username: String, _ password : String, _ type : String, _ gender : String, _ realname : String) {
-        let url = URL(string: "\(serverDir)/signup.php?username=\(username)&password=\(password)&type=\(type)&gender=\(gender)&realname=\(realname)")
-        let urlRequest = URLRequest(url: url!)
+        let str = "\(serverDir)/signup.php?username=\(username)&password=\(password)&type=\(type)&gender=\(gender)&realname=\(realname)"
+        let urlRequest = URLRequest(url: URL(string: str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in

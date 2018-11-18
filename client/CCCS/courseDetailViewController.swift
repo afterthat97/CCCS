@@ -23,7 +23,7 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         courseDetailTableView.delegate = self
         courseDetailTableView.dataSource = self
-        self.navigationItem.title = selectedCourse.name
+        self.navigationItem.title = selectedCourse.name.removingPercentEncoding
         if (user.type == "Teacher") {
             mainButton.setTitle("Start/Stop Lesson", for: .normal)
             queryButton.setTitle("Query Attendance", for: .normal)
@@ -55,8 +55,8 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func makeGetLessonListCall() {
-        let urlString = "\(serverDir)/getLessonList.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&cid=\(selectedCourse.cid)"
-        let urlRequest = URLRequest(url: URL(string: urlString)!)
+        let str = "\(serverDir)/getLessonList.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&cid=\(selectedCourse.cid)"
+        let urlRequest = URLRequest(url: URL(string: str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
@@ -85,7 +85,7 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func makeMainCall(_ urlString: String) {
-        let urlRequest = URLRequest(url: URL(string: urlString)!)
+        let urlRequest = URLRequest(url: URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
@@ -141,7 +141,7 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,10 +150,10 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
         cell.accessoryType = .none
         if (indexPath.row == 0) {
             cell.textLabel?.text = "Course:"
-            cell.detailTextLabel?.text = self.selectedCourse.name
+            cell.detailTextLabel?.text = self.selectedCourse.name.removingPercentEncoding
         } else if (indexPath.row == 1) {
             cell.textLabel?.text = "Teacher:"
-            cell.detailTextLabel?.text = self.selectedCourse.teacher.realname
+            cell.detailTextLabel?.text = self.selectedCourse.teacher.realname.removingPercentEncoding
         } else if (indexPath.row == 2) {
             cell.textLabel?.text = "Credit:"
             cell.detailTextLabel?.text = String(self.selectedCourse.credit)
@@ -165,6 +165,9 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
             } else {
                 cell.detailTextLabel?.text = "Started"
             }
+        } else if (indexPath.row == 4) {
+            cell.textLabel?.text = "Place:"
+            cell.detailTextLabel?.text = self.selectedCourse.place.removingPercentEncoding
         } else {
             cell.textLabel?.text = "Start time:"
             if (self.selectedCourse.lessonlist.count == 0 ||

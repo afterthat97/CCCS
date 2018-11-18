@@ -39,8 +39,8 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeAddCourseCall(_ name : String, _ credit : String, _ place : String) {
-        let url = URL(string: "\(serverDir)/addCourse.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&name=\(name)&credit=\(credit)")
-        let urlRequest = URLRequest(url: url!)
+        let str = "\(serverDir)/addCourse.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&name=\(name)&credit=\(credit)&place=\(place)"
+        let urlRequest = URLRequest(url: URL(string: str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
@@ -69,7 +69,7 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
             self.showAlert("Error", "Course name cannot be empty")
         } else if (creditTextField.text! == "") {
             self.showAlert("Error", "Credit cannot be empty")
-        } else if (placeTextField.isHidden == false && placeTextField.text! == "") {
+        } else if (placeTextField.text! == "") {
             self.showAlert("Error", "Place cannot be empty")
         } else {
             makeAddCourseCall(courseNameTextField.text!, creditTextField.text!, placeTextField.text!)
