@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EV7-CM-B5l">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EV7-CM-B5l">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -150,7 +150,7 @@
                             <outlet property="delegate" destination="lGZ-pP-t1o" id="vHZ-8f-1fd"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Me" id="pzm-0T-R6f"/>
+                    <tabBarItem key="tabBarItem" title="Me" selectedImage="tabbar_me" id="pzm-0T-R6f"/>
                     <navigationItem key="navigationItem" title="Me" id="JC6-eI-tZw"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mgx-WG-vX5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -386,11 +386,11 @@
             </objects>
             <point key="canvasLocation" x="-913" y="-278"/>
         </scene>
-        <!--Course-->
+        <!--Courses-->
         <scene sceneID="msW-O5-Syu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="akw-XF-d30" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Course" id="1fE-Ex-C4W"/>
+                    <tabBarItem key="tabBarItem" title="Courses" image="tabbar_course" id="1fE-Ex-C4W"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gyC-ON-iMP">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -409,7 +409,7 @@
         <scene sceneID="4Gc-ED-X5x">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iE6-A7-v3r" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Me" id="VIg-O9-ypI"/>
+                    <tabBarItem key="tabBarItem" title="Me" image="tabbar_me" id="VIg-O9-ypI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nnt-qN-Bcd">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -627,4 +627,8 @@
             <point key="canvasLocation" x="1373" y="-653"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabbar_course" width="25" height="25"/>
+        <image name="tabbar_me" width="25" height="25"/>
+    </resources>
 </document>
