@@ -12,7 +12,7 @@ class meTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = user.realname.removingPercentEncoding
+        self.navigationItem.title = user.realname
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,7 +35,7 @@ class meTableViewController: UITableViewController {
             cell.detailTextLabel?.text = user.username
         } else if (indexPath.row == 1) {
             cell.textLabel?.text = "Realname:"
-            cell.detailTextLabel?.text = user.realname.removingPercentEncoding
+            cell.detailTextLabel?.text = user.realname
         } else if (indexPath.row == 2) {
             cell.textLabel?.text = "Gender:"
             cell.detailTextLabel?.text = user.gender

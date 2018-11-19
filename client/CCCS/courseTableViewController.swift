@@ -48,7 +48,7 @@ class courseTableViewController: UITableViewController {
     
     func makeGetCourseListCall() {
         let str = "\(serverDir)/getCourseList.php?username=\(user.username)&password=\(user.password)&type=\(user.type)"
-        let urlRequest = URLRequest(url: URL(string: str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
+        let urlRequest = URLRequest(url: URL(string: str)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
@@ -85,7 +85,7 @@ class courseTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return courseList[section].name.removingPercentEncoding
+        return courseList[section].name
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,13 +94,13 @@ class courseTableViewController: UITableViewController {
         cell.accessoryType = .none
         if (indexPath.row == 0) {
             cell.textLabel?.text = "Course:"
-            cell.detailTextLabel?.text = self.courseList[indexPath.section].name.removingPercentEncoding
+            cell.detailTextLabel?.text = self.courseList[indexPath.section].name
         } else if (indexPath.row == 1) {
             cell.textLabel?.text = "Teacher:"
-            cell.detailTextLabel?.text = self.courseList[indexPath.section].teacher.realname.removingPercentEncoding
+            cell.detailTextLabel?.text = self.courseList[indexPath.section].teacher.realname
         } else if (indexPath.row == 2) {
             cell.textLabel?.text = "Place:"
-            cell.detailTextLabel?.text = self.courseList[indexPath.section].place.removingPercentEncoding
+            cell.detailTextLabel?.text = self.courseList[indexPath.section].place
         } else if (indexPath.row == 3) {
             cell.textLabel?.text = "Status:"
             if (self.courseList[indexPath.section].lessonlist.count == 0 ||
@@ -113,7 +113,7 @@ class courseTableViewController: UITableViewController {
         }
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.row == 3) {
             selectedCourse = self.courseList[indexPath.section]

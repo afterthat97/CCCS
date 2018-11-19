@@ -34,9 +34,8 @@ class selectCourseTableViewController: UITableViewController {
     }
     
     func makeGetCourseListCall() {
-        let str_source = "\(serverDir)/getCourseList.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&all=1"
-        let str = str_source.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        let urlRequest = URLRequest(url: URL(string: str!)!)
+        let str = "\(serverDir)/getCourseList.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&all=1"
+        let urlRequest = URLRequest(url: URL(string: str)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
@@ -65,7 +64,7 @@ class selectCourseTableViewController: UITableViewController {
     }
     
     func makeSelectCourseCall(_ cid : Int) {
-        let url = URL(string: "\(serverDir)/selectCourse.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&cid=\(cid)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+        let url = URL(string: "\(serverDir)/selectCourse.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&cid=\(cid)")
         let urlRequest = URLRequest(url: url!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
@@ -103,7 +102,7 @@ class selectCourseTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.courseListAll[section].name.removingPercentEncoding
+        return self.courseListAll[section].name
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,10 +111,10 @@ class selectCourseTableViewController: UITableViewController {
         cell.accessoryType = .none
         if (indexPath.row == 0) {
             cell.textLabel?.text = "Course:"
-            cell.detailTextLabel?.text = self.courseListAll[indexPath.section].name.removingPercentEncoding
+            cell.detailTextLabel?.text = self.courseListAll[indexPath.section].name
         } else if (indexPath.row == 1) {
             cell.textLabel?.text = "Teacher:"
-            cell.detailTextLabel?.text = self.courseListAll[indexPath.section].teacher.realname.removingPercentEncoding
+            cell.detailTextLabel?.text = self.courseListAll[indexPath.section].teacher.realname
         } else if (indexPath.row == 2) {
             cell.textLabel?.text = "Credit:"
             cell.detailTextLabel?.text = String(self.courseListAll[indexPath.section].credit)

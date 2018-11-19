@@ -3,7 +3,7 @@
 # mysql
 $dbhost = 'localhost';
 $dbuser = 'root';
-$dbpass = 'breezepqf';
+$dbpass = 'liudashi666';
 $dbname = 'cccs';
 
 ?>

@@ -40,7 +40,7 @@ class signInViewController: UIViewController, UITextFieldDelegate {
     
     func makeSignInCall(_ username : String, _ password : String, _ type : String) {
         let str = "\(serverDir)/signin.php?username=\(username)&password=\(password)&type=\(type)"
-        let urlRequest = URLRequest(url: URL(string: str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
+        let urlRequest = URLRequest(url: URL(string: str)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in

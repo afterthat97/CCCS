@@ -56,7 +56,7 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     func makeGetLessonListCall() {
         let str = "\(serverDir)/getLessonList.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&cid=\(selectedCourse.cid)"
-        let urlRequest = URLRequest(url: URL(string: str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
+        let urlRequest = URLRequest(url: URL(string: str)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
@@ -85,7 +85,7 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func makeMainCall(_ urlString: String) {
-        let urlRequest = URLRequest(url: URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
+        let urlRequest = URLRequest(url: URL(string: urlString)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
@@ -110,7 +110,7 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
         task.resume()
     }
     
-    func authenticateUser() {
+    @IBAction func mainEvent(_ sender: Any) {
         let context = LAContext()
         var error: NSError?
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
@@ -136,10 +136,6 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    @IBAction func mainEvent(_ sender: Any) {
-        authenticateUser()
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
     }
@@ -150,10 +146,10 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
         cell.accessoryType = .none
         if (indexPath.row == 0) {
             cell.textLabel?.text = "Course:"
-            cell.detailTextLabel?.text = self.selectedCourse.name.removingPercentEncoding
+            cell.detailTextLabel?.text = self.selectedCourse.name
         } else if (indexPath.row == 1) {
             cell.textLabel?.text = "Teacher:"
-            cell.detailTextLabel?.text = self.selectedCourse.teacher.realname.removingPercentEncoding
+            cell.detailTextLabel?.text = self.selectedCourse.teacher.realname
         } else if (indexPath.row == 2) {
             cell.textLabel?.text = "Credit:"
             cell.detailTextLabel?.text = String(self.selectedCourse.credit)
@@ -167,7 +163,7 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
             }
         } else if (indexPath.row == 4) {
             cell.textLabel?.text = "Place:"
-            cell.detailTextLabel?.text = self.selectedCourse.place.removingPercentEncoding
+            cell.detailTextLabel?.text = self.selectedCourse.place
         } else {
             cell.textLabel?.text = "Start time:"
             if (self.selectedCourse.lessonlist.count == 0 ||
