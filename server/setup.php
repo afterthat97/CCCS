@@ -71,6 +71,7 @@ if (!mysqli_query($conn, $query)) {
         "tid INT NOT NULL,".
         "name VARCHAR(100) NOT NULL,".
         "credit INT NOT NULL,".
+	"place VARCHAR(100) NOT NULL,".
         "FOREIGN KEY (tid) REFERENCES Teacher(tid),".
         "PRIMARY KEY (cid)".
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";

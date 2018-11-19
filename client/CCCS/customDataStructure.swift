@@ -8,7 +8,7 @@
 
 import Foundation
 
-let serverDir = "https://masterliu.net/cccs"
+let serverDir = "http://47.95.238.186/cccs"
 
 var user = User("", [:])
 
@@ -64,12 +64,14 @@ class Course {
     var teacher: Teacher
     var name: String
     var credit: Int
+    var place: String
     var lessonlist: [Lesson]
     init(_ dic: [String : Any]) {
         self.cid = Int(dic["cid"] as? String ?? "-1")!
         self.teacher = Teacher(dic["teacher"] as? [String : Any] ?? [:])
         self.name = dic["name"] as? String ?? ""
         self.credit = Int(dic["credit"] as? String ?? "-1")!
+        self.place = dic["place"] as? String ?? ""
         self.lessonlist = []
         for lessonDic in dic["lessonlist"] as? [[String : Any]] ?? [[:]] {
             self.lessonlist.append(Lesson(lessonDic))

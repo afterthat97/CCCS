@@ -16,7 +16,7 @@ if ($user_info == null)
 if (get_course_by_name($conn, $_GET["name"], $user_info["tid"]) != null)
     die(encode_result(1, "Course already exists."));
 
-if (new_course($conn, $_GET["name"], $user_info["tid"], $_GET["credit"]))
+if (new_course($conn, $_GET["name"], $user_info["tid"], $_GET["credit"], $_GET["place"]))
     echo encode_result(0, "Course has been added.");
 else
     echo encode_result(1, "Invalid syntax.");

@@ -36,8 +36,8 @@ class attendanceTableViewController: UITableViewController {
     }
     
     func makeGetAttendanceCall() {
-        let url = URL(string: "\(serverDir)/getAttendance.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&cid=\(selectedCourse.cid)")
-        let urlRequest = URLRequest(url: url!)
+        let str = "\(serverDir)/getAttendance.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&cid=\(selectedCourse.cid)"
+        let urlRequest = URLRequest(url: URL(string: str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
@@ -87,7 +87,7 @@ class attendanceTableViewController: UITableViewController {
         cell.accessoryType = .none
         if (indexPath.row == 0) {
             cell.textLabel?.text = "Student:"
-            cell.detailTextLabel?.text = self.checkinRecords[indexPath.section].student.realname
+            cell.detailTextLabel?.text = self.checkinRecords[indexPath.section].student.realname.removingPercentEncoding
         } else if (indexPath.row == 1) {
             cell.textLabel?.text = "Start time:"
             cell.detailTextLabel?.text = self.checkinRecords[indexPath.section].lesson.start_time

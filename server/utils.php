@@ -46,6 +46,7 @@ function get_distance($latitude1, $longitude1, $latitude2, $longitude2) {
 function new_user($conn, $username, $password, $type, $gender, $realname) {
     if (validate_user($conn, $username, $password, $type) != null)
         return false;
+    $realname = urlencode($realname);
     $query = "insert into $type ".
         "(username, password, realname, gender)".
         "values".
@@ -82,13 +83,15 @@ function get_teacher_by_id($conn, $tid) {
     return $row;
 }
 
-function new_course($conn, $name, $tid, $credit) {
-    if (get_course_by_name($conn, $name, $tid) != null)
+function new_course($conn, $name, $tid, $credit, $place) {
+    if (get_course_by_name($conn, $name, $tid, $place) != null)
         return false;
+    $name = urlencode($name);
+    $place = urlencode($place);
     $query = "insert into Course ".
-            "(tid, name, credit) ".
+            "(tid, name, credit, place) ".
             "values ".
-            "($tid, '$name', $credit)";
+            "($tid, '$name', $credit, '$place')";
     return mysqli_query($conn, $query);
 }
 
