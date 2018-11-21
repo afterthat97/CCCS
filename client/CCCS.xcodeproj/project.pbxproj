@@ -12,6 +12,9 @@
 		B85E9C84218D9B9C00A3DD13 /* courseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E9C83218D9B9C00A3DD13 /* courseDetailViewController.swift */; };
 		B85E9C88218DD2F400A3DD13 /* attendanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E9C87218DD2F400A3DD13 /* attendanceTableViewController.swift */; };
 		B86E87412097002500EF096C /* addCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86E87402097002500EF096C /* addCourseViewController.swift */; };
+		B8716F2421A4E3B100252426 /* raiseQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8716F2321A4E3B100252426 /* raiseQuestionViewController.swift */; };
+		B8716F2621A554FD00252426 /* questionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8716F2521A554FD00252426 /* questionDetailViewController.swift */; };
+		B8ABF3E221A2E576004BFDA0 /* questionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABF3E121A2E576004BFDA0 /* questionTableViewController.swift */; };
 		B8AC3559218A8F82004E283F /* customDataStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AC3558218A8F82004E283F /* customDataStructure.swift */; };
 		B8AD3A582090220A00198572 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AD3A572090220A00198572 /* AppDelegate.swift */; };
 		B8AD3A5A2090220A00198572 /* signInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AD3A592090220A00198572 /* signInViewController.swift */; };
@@ -28,6 +31,9 @@
 		B85E9C83218D9B9C00A3DD13 /* courseDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = courseDetailViewController.swift; sourceTree = "<group>"; };
 		B85E9C87218DD2F400A3DD13 /* attendanceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = attendanceTableViewController.swift; sourceTree = "<group>"; };
 		B86E87402097002500EF096C /* addCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addCourseViewController.swift; sourceTree = "<group>"; };
+		B8716F2321A4E3B100252426 /* raiseQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = raiseQuestionViewController.swift; sourceTree = "<group>"; };
+		B8716F2521A554FD00252426 /* questionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = questionDetailViewController.swift; sourceTree = "<group>"; };
+		B8ABF3E121A2E576004BFDA0 /* questionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = questionTableViewController.swift; sourceTree = "<group>"; };
 		B8AC3558218A8F82004E283F /* customDataStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customDataStructure.swift; sourceTree = "<group>"; };
 		B8AD3A542090220A00198572 /* CCCS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCCS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8AD3A572090220A00198572 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,11 +78,14 @@
 			children = (
 				B8AD3A5B2090220A00198572 /* Main.storyboard */,
 				B8AD3A572090220A00198572 /* AppDelegate.swift */,
-				B8AD3A592090220A00198572 /* signInViewController.swift */,
 				B8AC3558218A8F82004E283F /* customDataStructure.swift */,
+				B8AD3A592090220A00198572 /* signInViewController.swift */,
 				B8AD3A6B20904B5100198572 /* signUpViewController.swift */,
 				B85E9C7B218BF64A00A3DD13 /* courseTableViewController.swift */,
 				B85E9C83218D9B9C00A3DD13 /* courseDetailViewController.swift */,
+				B8ABF3E121A2E576004BFDA0 /* questionTableViewController.swift */,
+				B8716F2521A554FD00252426 /* questionDetailViewController.swift */,
+				B8716F2321A4E3B100252426 /* raiseQuestionViewController.swift */,
 				B85E9C87218DD2F400A3DD13 /* attendanceTableViewController.swift */,
 				B8AD3A6F2090825B00198572 /* meTableViewController.swift */,
 				B86E87402097002500EF096C /* addCourseViewController.swift */,
@@ -162,15 +171,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				B85E9C7E218D7F2F00A3DD13 /* selectCourseTableViewController.swift in Sources */,
+				B8ABF3E221A2E576004BFDA0 /* questionTableViewController.swift in Sources */,
 				B85E9C7C218BF64A00A3DD13 /* courseTableViewController.swift in Sources */,
 				B85E9C88218DD2F400A3DD13 /* attendanceTableViewController.swift in Sources */,
 				B8AD3A5A2090220A00198572 /* signInViewController.swift in Sources */,
+				B8716F2421A4E3B100252426 /* raiseQuestionViewController.swift in Sources */,
 				B8AD3A582090220A00198572 /* AppDelegate.swift in Sources */,
 				B85E9C84218D9B9C00A3DD13 /* courseDetailViewController.swift in Sources */,
 				B86E87412097002500EF096C /* addCourseViewController.swift in Sources */,
 				B8AD3A6C20904B5100198572 /* signUpViewController.swift in Sources */,
 				B8AD3A702090825B00198572 /* meTableViewController.swift in Sources */,
 				B8AC3559218A8F82004E283F /* customDataStructure.swift in Sources */,
+				B8716F2621A554FD00252426 /* questionDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

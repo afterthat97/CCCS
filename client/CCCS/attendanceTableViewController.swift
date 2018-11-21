@@ -29,7 +29,7 @@ class attendanceTableViewController: UITableViewController {
     
     func showAlert(_ title : String, _ msg : String) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in }))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
         DispatchQueue.main.async { [unowned self] in
             self.present(alert, animated: true, completion: nil)
         }
@@ -82,7 +82,7 @@ class attendanceTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.selectionStyle = .none
         cell.accessoryType = .none
         if (indexPath.row == 0) {

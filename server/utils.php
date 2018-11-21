@@ -253,4 +253,54 @@ function get_checkin_records_by_cid($conn, $cid) {
     return $checkin_records;
 }
 
+function new_question($conn, $lid, $description, $option0, $option1, $option2, $option3, $answer) {
+    $query = "insert into Question ".
+        "(lid, description, raised_time, option0, option1, option2, option3, answer) ".
+        "values ".
+        "($lid, '$description', NOW(), '$option0', '$option1', '$option2', '$option3', $answer)";
+    return mysqli_query($conn, $query);
+}
+
+function new_answer_to_question($conn, $sid, $qid, $choice) {
+    $query = "insert into StudentQuestion ".
+        "(sid, qid, submit_time, choice) ".
+        "values ".
+        "($sid, $qid, NOW(), $choice)";
+    return mysqli_query($conn, $query);
+}
+
+function get_question_by_qid($conn, $qid) {
+    $query = "select * from Question ".
+        "where qid = $qid";
+	$retval = mysqli_query($conn, $query);
+    return mysqli_fetch_array($retval, MYSQLI_ASSOC);
+}
+
+function get_answer_by_sid_and_qid($conn, $sid, $qid) {
+    $query = "select * from StudentQuestion ".
+        "where sid = $sid and qid = $qid";
+	$retval = mysqli_query($conn, $query);
+    return mysqli_fetch_array($retval, MYSQLI_ASSOC);
+}
+
+function get_question_list_by_lid($conn, $lid) {
+    $query = "select * from Question ".
+        "where lid = $lid";
+	$retval = mysqli_query($conn, $query);
+    $checkin_records = array();
+    while ($row = mysqli_fetch_array($retval, MYSQLI_ASSOC))
+        array_push($checkin_records, $row);
+    return $checkin_records;
+}
+
+function get_answer_list_by_qid($conn, $qid) {
+    $query = "select * from StudentQuestion ".
+        "where qid = $qid";
+	$retval = mysqli_query($conn, $query);
+    $checkin_records = array();
+    while ($row = mysqli_fetch_array($retval, MYSQLI_ASSOC))
+        array_push($checkin_records, $row);
+    return $checkin_records;
+}
+
 ?>

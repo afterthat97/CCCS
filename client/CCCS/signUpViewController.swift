@@ -35,7 +35,7 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
     
     func showAlert(_ title : String, _ msg : String) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in }))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
         DispatchQueue.main.async { [unowned self] in
             self.present(alert, animated: true, completion: nil)
         }
@@ -70,11 +70,11 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func signUp(_ sender: UIButton) {
         if (usernameTextField.text == "") {
-            showAlert("Error", "Username cannot be empty.")
+            showAlert("Error", "Username can't leave empty.")
         } else if (realnameTextField.text == "") {
-            showAlert("Error", "Real name cannot be empty.")
+            showAlert("Error", "Real name can't leave empty.")
         } else if (passwordTextField.text == "") {
-            showAlert("Error", "Password cannot be empty.")
+            showAlert("Error", "Password can't leave empty.")
         } else if (passwordTextField.text != retypePasswordTextField.text) {
             showAlert("Error", "Two passwords must match.")
         } else {

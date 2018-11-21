@@ -103,6 +103,29 @@ if (!mysqli_query($conn, $query)) {
     echo "<p>Table 'Lesson' exists.</p>";
 }
 
+$query = "select 1 from Question limit 1;";
+if (!mysqli_query($conn, $query)) {
+    $query = "CREATE TABLE Question (".
+        "qid INT NOT NULL AUTO_INCREMENT,".
+        "lid INT NOT NULL,".
+        "description VARCHAR(100) NOT NULL,".
+	    "raised_time DATETIME,".
+        "option0 VARCHAR(100) NOT NULL,".
+        "option1 VARCHAR(100) NOT NULL,".
+        "option2 VARCHAR(100) NOT NULL,".
+        "option3 VARCHAR(100) NOT NULL,".
+        "answer INT NOT NULL,".
+        "FOREIGN KEY (lid) REFERENCES Lesson(lid),".
+        "PRIMARY KEY (qid)".
+        ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+    if (mysqli_query($conn, $query))
+        echo "<p>Table 'Question' created successfully.</p>";
+    else
+        die("<p>Failed to create table 'Question': " . mysqli_error($conn) . "</p>");
+} else {
+    echo "<p>Table 'Question' exists.</p>";
+}
+
 $query = "select 1 from StudentCourse limit 1;";
 if (!mysqli_query($conn, $query)) {
     $query = "CREATE TABLE StudentCourse (".
@@ -130,6 +153,25 @@ if (!mysqli_query($conn, $query)) {
         "FOREIGN KEY (sid) REFERENCES Student(sid),".
         "FOREIGN KEY (lid) REFERENCES Lesson(lid),".
         "PRIMARY KEY (sid, lid)".
+        ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+    if (mysqli_query($conn, $query))
+        echo "<p>Table 'StudentLesson' created successfully.</p>";
+    else
+        die("<p>Failed to create table 'StudentLesson': " . mysqli_error($conn) . "</p>");
+} else {
+    echo "<p>Table 'StudentLesson' exists.</p>";
+}
+
+$query = "select 1 from StudentQuestion limit 1;";
+if (!mysqli_query($conn, $query)) {
+    $query = "CREATE TABLE StudentQuestion (".
+        "sid INT NOT NULL,".
+        "qid INT NOT NULL,".
+        "submit_time DATETIME,".
+        "choice INT NOT NULL,".
+        "FOREIGN KEY (sid) REFERENCES Student(sid),".
+        "FOREIGN KEY (qid) REFERENCES Question(qid),".
+        "PRIMARY KEY (sid, qid)".
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
     if (mysqli_query($conn, $query))
         echo "<p>Table 'StudentLesson' created successfully.</p>";

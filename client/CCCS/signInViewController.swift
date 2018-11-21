@@ -32,7 +32,7 @@ class signInViewController: UIViewController, UITextFieldDelegate {
     
     func showAlert(_ title : String, _ msg : String) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in }))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
         DispatchQueue.main.async { [unowned self] in
             self.present(alert, animated: true, completion: nil)
         }

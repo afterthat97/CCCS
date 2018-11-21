@@ -48,7 +48,7 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     func showAlert(_ title : String, _ msg : String) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in }))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
         DispatchQueue.main.async { [unowned self] in
             self.present(alert, animated: true, completion: nil)
         }
@@ -141,7 +141,7 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.selectionStyle = .none
         cell.accessoryType = .none
         if (indexPath.row == 0) {
@@ -180,6 +180,14 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
         if segue.destination is attendanceTableViewController {
             let t = segue.destination as? attendanceTableViewController
             t?.selectedCourse = self.selectedCourse
+        }
+        if segue.destination is questionTableViewController {
+            if (self.selectedCourse.lessonlist.count == 0 ||
+                self.selectedCourse.lessonlist[0].end_time != "") {
+                self.showAlert("Error", "Class not started.")
+            }
+            let t = segue.destination as? questionTableViewController
+            t?.currentLesson = self.selectedCourse.lessonlist[0]
         }
     }
 }

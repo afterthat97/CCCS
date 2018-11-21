@@ -28,7 +28,7 @@ class meTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         cell.selectionStyle = .none
         if (indexPath.row == 0) {
             cell.textLabel?.text = "Username:"
