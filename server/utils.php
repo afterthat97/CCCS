@@ -226,6 +226,15 @@ function new_checkin_record($conn, $sid, $lid, $checkin_time, $status) {
     return mysqli_query($conn, $query);
 }
 
+function update_checkin_record($conn, $sid, $lid, $new_status) {
+    if (!get_checkin_record($conn, $sid, $lid))
+        return false;
+    $query = "update StudentLesson ".
+        "set status = '$new_status' ".
+        "where sid = $sid and lid = $lid";
+    return mysqli_query($conn, $query);
+}
+
 function get_checkin_record($conn, $sid, $lid) {
     $query = "select * from StudentLesson ".
         "where sid = $sid and lid = $lid";
