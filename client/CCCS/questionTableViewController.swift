@@ -10,13 +10,16 @@ import UIKit
 
 class questionTableViewController: UITableViewController {
     @IBOutlet var questionTableView: UITableView!
-
+    
     var currentLesson = Lesson([:])
     var questionList = [Question]()
     var selectedQuestion = Question([:])
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if user.type == "Student" {
+            navigationItem.rightBarButtonItem = nil
+        }
         makeGetQuestionListCall()
     }
     

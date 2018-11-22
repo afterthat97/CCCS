@@ -136,6 +136,15 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    @IBAction func questionButtonTapped(_ sender: Any) {
+        if (self.selectedCourse.lessonlist.count == 0 ||
+            self.selectedCourse.lessonlist[0].end_time != "") {
+            self.showAlert("Error", "Class not started.")
+        } else {
+            self.performSegue(withIdentifier: "segueToQuestionList", sender: self)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
     }
@@ -154,6 +163,9 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
             cell.textLabel?.text = "Credit:"
             cell.detailTextLabel?.text = String(self.selectedCourse.credit)
         } else if (indexPath.row == 3) {
+            cell.textLabel?.text = "Place:"
+            cell.detailTextLabel?.text = self.selectedCourse.place
+        } else if (indexPath.row == 4) {
             cell.textLabel?.text = "Status:"
             if (self.selectedCourse.lessonlist.count == 0 ||
                 self.selectedCourse.lessonlist[0].end_time != "") {
@@ -161,9 +173,6 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
             } else {
                 cell.detailTextLabel?.text = "Started"
             }
-        } else if (indexPath.row == 4) {
-            cell.textLabel?.text = "Place:"
-            cell.detailTextLabel?.text = self.selectedCourse.place
         } else {
             cell.textLabel?.text = "Start time:"
             if (self.selectedCourse.lessonlist.count == 0 ||
@@ -182,10 +191,6 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
             t?.selectedCourse = self.selectedCourse
         }
         if segue.destination is questionTableViewController {
-            if (self.selectedCourse.lessonlist.count == 0 ||
-                self.selectedCourse.lessonlist[0].end_time != "") {
-                self.showAlert("Error", "Class not started.")
-            }
             let t = segue.destination as? questionTableViewController
             t?.currentLesson = self.selectedCourse.lessonlist[0]
         }

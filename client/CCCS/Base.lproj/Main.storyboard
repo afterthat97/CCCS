@@ -467,7 +467,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Questions"/>
                                         <connections>
-                                            <segue destination="rhS-6C-MiO" kind="show" id="4YP-9z-Wq4"/>
+                                            <action selector="questionButtonTapped:" destination="cus-iY-SYy" eventType="touchUpInside" id="hak-09-Nh6"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bf3-xS-hcK">
@@ -534,6 +534,7 @@
                         <outlet property="courseDetailTableView" destination="0Mf-Ln-m7J" id="Tu5-of-MSO"/>
                         <outlet property="mainButton" destination="E2s-4O-mIQ" id="9kT-mA-0Am"/>
                         <outlet property="queryButton" destination="bf3-xS-hcK" id="JQ0-mL-yFW"/>
+                        <segue destination="rhS-6C-MiO" kind="show" identifier="segueToQuestionList" id="RAa-Jo-84s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WEr-sn-iSq" userLabel="First Responder" sceneMemberID="firstResponder"/>
