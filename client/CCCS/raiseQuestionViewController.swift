@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import LocalAuthentication
 
-class raiseQuestionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class raiseQuestionViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var questionTableView: UITableView!
     @IBOutlet weak var answerSegmentedControl: UISegmentedControl!
     @IBOutlet weak var questionDescriptionTextField: UITextField!
@@ -18,12 +19,18 @@ class raiseQuestionViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        questionDescriptionTextField.delegate = self
         questionTableView.tableFooterView = UIView()
         questionTableView.delegate = self
         questionTableView.dataSource = self
         for i in 0..<newQuestion.options.count {
             newQuestion.options[i] = "Click to edit"
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func showAlert(_ title : String, _ msg : String) {
@@ -49,14 +56,28 @@ class raiseQuestionViewController: UIViewController, UITableViewDelegate, UITabl
             return
         }
         for i in 0..<newQuestion.options.count {
-            if newQuestion.options[i] == "Click to edit" {
+            if newQuestion.options[i] == "Click to edit" || newQuestion.options[i] == "" {
                 self.showAlert("Error", "Option \(String(UnicodeScalar(i + 65)!)) can't leave empty.")
                 return
             }
         }
         newQuestion.description = questionDescriptionTextField.text!
         newQuestion.answer = answerSegmentedControl.selectedSegmentIndex
-        makeRaiseQuestionCall(currentLesson, newQuestion)
+        
+        let context = LAContext()
+        var error: NSError?
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Identification") {
+                [unowned self] success, authenticationError in
+                DispatchQueue.main.async {
+                    if (success) {
+                        self.makeRaiseQuestionCall(self.currentLesson, self.newQuestion)
+                    }
+                }
+            }
+        } else {
+            self.showAlert("Touch ID not available", "Your device is not configured for Touch ID.")
+        }
     }
     
     func makeRaiseQuestionCall(_ lesson: Lesson, _ question: Question) {

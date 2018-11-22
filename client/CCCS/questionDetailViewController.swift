@@ -52,7 +52,7 @@ class questionDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func makeGetAnswerListCall() {
-        let urlString = "\(serverDir)/getAnswerListphp?username=\(user.username)&password=\(user.password)&type=\(user.type)&qid=\(self.selectedQuestion.qid)"
+        let urlString = "\(serverDir)/getAnswerList.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&qid=\(self.selectedQuestion.qid)"
         let urlRequest = URLRequest(url: URL(string: urlString)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
@@ -121,7 +121,20 @@ class questionDetailViewController: UIViewController, UITableViewDelegate, UITab
                 self.showAlert("Error", "You must select an option.")
                 return
             }
-            makeSubmitAnswerCall((questionTableView.indexPathForSelectedRow?.section)!)
+            let context = LAContext()
+            var error: NSError?
+            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Identification") {
+                    [unowned self] success, authenticationError in
+                    DispatchQueue.main.async {
+                        if (success) {
+                            self.makeSubmitAnswerCall((self.questionTableView.indexPathForSelectedRow?.section)!)
+                        }
+                    }
+                }
+            } else {
+                self.showAlert("Touch ID not available", "Your device is not configured for Touch ID.")
+            }
         }
     }
     
