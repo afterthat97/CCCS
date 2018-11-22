@@ -8,7 +8,7 @@
 
 import Foundation
 
-let serverDir = "http://127.0.0.1/cccs"
+let serverDir = "https://masterliu.net/cccs"
 
 var user = User("", [:])
 
@@ -130,7 +130,7 @@ class CheckinRecord {
     }
 }
 
-class answerRecord {
+class AnswerRecord {
     var student: Student
     var question: Question
     var submit_time: String

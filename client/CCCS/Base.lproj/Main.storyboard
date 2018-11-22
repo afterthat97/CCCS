@@ -649,9 +649,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebM-bi-LfS">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="Submit"/>
+                                        <state key="normal" title="Main"/>
                                         <connections>
-                                            <action selector="submitAnswer:" destination="FXp-Pp-Ra2" eventType="touchUpInside" id="ILP-3Z-JGE"/>
+                                            <action selector="mainEvent:" destination="FXp-Pp-Ra2" eventType="touchUpInside" id="5Vi-wc-9wS"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -669,9 +669,9 @@
                         <viewLayoutGuide key="safeArea" id="dpM-3v-9kI"/>
                     </view>
                     <connections>
+                        <outlet property="mainButton" destination="ebM-bi-LfS" id="mh5-H0-t5j"/>
                         <outlet property="questionDescriptionLabel" destination="bl1-YL-ORh" id="iSR-Vu-dCs"/>
                         <outlet property="questionTableView" destination="xKe-f0-Hub" id="A7b-oy-xba"/>
-                        <outlet property="submitButton" destination="ebM-bi-LfS" id="2kW-6X-qAE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tAD-BW-3Nk" userLabel="First Responder" sceneMemberID="firstResponder"/>

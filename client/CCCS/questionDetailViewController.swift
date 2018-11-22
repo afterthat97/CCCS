@@ -13,9 +13,10 @@ import CoreLocation
 class questionDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     @IBOutlet weak var questionTableView: UITableView!
     @IBOutlet weak var questionDescriptionLabel: UILabel!
-    @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var mainButton: UIButton!
     
     var selectedQuestion = Question([:])
+    var answerRecordList = [AnswerRecord]()
     var locationManager: CLLocationManager = CLLocationManager()
     var cntLocation: CLLocation!
     
@@ -31,7 +32,9 @@ class questionDetailViewController: UIViewController, UITableViewDelegate, UITab
         questionTableView.delegate = self
         questionTableView.dataSource = self
         if user.type == "Teacher" {
-            submitButton.isHidden = true
+            mainButton.setTitle("Results", for: .normal)
+        } else {
+            mainButton.setTitle("Submit", for: .normal)
         }
     }
     
@@ -46,6 +49,42 @@ class questionDetailViewController: UIViewController, UITableViewDelegate, UITab
         DispatchQueue.main.async { [unowned self] in
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    func makeGetAnswerListCall() {
+        let urlString = "\(serverDir)/getAnswerListphp?username=\(user.username)&password=\(user.password)&type=\(user.type)&qid=\(self.selectedQuestion.qid)"
+        let urlRequest = URLRequest(url: URL(string: urlString)!)
+        let urlConfig = URLSessionConfiguration.default
+        let urlSession = URLSession(configuration: urlConfig)
+        let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
+            guard let responseData = data else {
+                self.showAlert("Error", "Response Error.")
+                return
+            }
+            do {
+                let responseJson = try JSONSerialization.jsonObject(with: responseData, options: [])
+                let responseDic = responseJson as! [String : Any]
+                if (responseDic["code"] as! Int == 1) {
+                    self.showAlert("Error", responseDic["info"] as! String)
+                } else {
+                    self.answerRecordList.removeAll()
+                    for answerRecordDic in responseDic["info"] as! [[String : Any]] {
+                        self.answerRecordList.append(AnswerRecord(answerRecordDic))
+                    }
+                    var correct_count = 0
+                    for answerRecord in self.answerRecordList {
+                        if answerRecord.choice == self.selectedQuestion.answer {
+                            correct_count = correct_count + 1
+                        }
+                    }
+                    self.showAlert("Info", "\(self.answerRecordList.count) student(s) answered this question, \(correct_count) of them is/are correct.")
+                }
+            } catch let parsingError {
+                self.showAlert("Error", parsingError.localizedDescription)
+                return
+            }
+        }
+        task.resume()
     }
     
     func makeSubmitAnswerCall(_ choice: Int) {
@@ -74,10 +113,14 @@ class questionDetailViewController: UIViewController, UITableViewDelegate, UITab
         task.resume()
     }
     
-    @IBAction func submitAnswer(_ sender: Any) {
-        if questionTableView.indexPathForSelectedRow?.section == nil {
-            self.showAlert("Error", "You must select an option.")
+    @IBAction func mainEvent(_ sender: Any) {
+        if user.type == "Teacher" {
+            makeGetAnswerListCall()
         } else {
+            if questionTableView.indexPathForSelectedRow?.section == nil {
+                self.showAlert("Error", "You must select an option.")
+                return
+            }
             makeSubmitAnswerCall((questionTableView.indexPathForSelectedRow?.section)!)
         }
     }
