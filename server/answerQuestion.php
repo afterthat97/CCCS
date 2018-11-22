@@ -26,7 +26,7 @@ $lesson = get_lesson_by_lid($conn, $question["lid"]);
 
 $distance = get_distance($_GET["latitude"], $_GET["longitude"], $lesson["latitude"], $lesson["longitude"]);
 
-if ($distance > 100)
+if ($distance > $checkin_distance_limit)
     die(encode_result(1, "You are too far away. ($distance m)"));
 
 if (new_answer_to_question($conn, $user_info["sid"], $_GET["qid"], $_GET["choice"]))

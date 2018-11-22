@@ -38,7 +38,7 @@ for ($i = 0; $i < count($selection_records); $i++) {
     for ($j = 0; $j < count($questionlist); $j++) {
         $qid = $questionlist[$j]["qid"];
         $answer = get_answer_by_sid_and_qid($conn, $sid, $qid);
-        if (!$answer || get_time_diff($conn, $answer["submit_time"], $questionlist[$j]["raised_time"]) > 300) {
+        if (!$answer || get_time_diff($conn, $answer["submit_time"], $questionlist[$j]["raised_time"]) > $answer_question_time_limit) {
             $leave_early_count++;
             $checkin_record = get_checkin_record($conn, $sid, $lid);
             if ($checkin_record["status"] == "Normal")

@@ -28,7 +28,7 @@ $latest_lesson = $lessonlist[0];
 
 $distance = get_distance($_GET["latitude"], $_GET["longitude"], $latest_lesson["latitude"], $latest_lesson["longitude"]);
 
-if ($distance > 100)
+if ($distance > $checkin_distance_limit)
     die(encode_result(1, "You are too far away. ($distance m)"));
 
 if ($record = get_checkin_record($conn, $user_info["sid"], $latest_lesson["lid"])) {
@@ -39,7 +39,7 @@ if ($record = get_checkin_record($conn, $user_info["sid"], $latest_lesson["lid"]
 $cnt_time = get_current_time($conn);
 $time_diff = get_time_diff($conn, $cnt_time, $latest_lesson["start_time"]);
 
-if ($time_diff <= 120) {
+if ($time_diff <= $checkin_time_limit) {
     new_checkin_record($conn, $user_info["sid"], $latest_lesson["lid"], $cnt_time, "Normal");
     echo encode_result(0, "Welcome to class!");
 } else {

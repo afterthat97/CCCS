@@ -8,7 +8,7 @@
 
 import Foundation
 
-let serverDir = "https://masterliu.net/cccs"
+let serverDir = "http://127.0.0.1/cccs"
 
 var user = User("", [:])
 
