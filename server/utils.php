@@ -50,7 +50,7 @@ function new_user($conn, $username, $password, $type, $gender, $realname) {
     $query = "insert into $type ".
         "(username, password, realname, gender)".
         "values".
-        "('$username', '$password', '$realname', '$gender')";
+        "('$username', md5('$password'), '$realname', '$gender')";
 	return mysqli_query($conn, $query);
 }
 
@@ -59,7 +59,7 @@ function validate_user($conn, $username, $password, $type) {
         "where username = '$username'";
     $retval = mysqli_query($conn, $query);
     $row = mysqli_fetch_array($retval, MYSQLI_ASSOC);
-    if ($row && $row['password'] == $password)
+    if ($row && $row['password'] == md5($password))
         return $row;
     else
         return null;
