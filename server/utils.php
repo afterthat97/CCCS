@@ -139,6 +139,7 @@ function get_selection_records_by_cid($conn, $cid) {
 }
 
 function get_course_by_name($conn, $name, $tid) {
+    $name = urlencode($name);
     $query = "select * from Course ".
         "where name = '$name' and tid = $tid";
 	$retval = mysqli_query($conn, $query);
