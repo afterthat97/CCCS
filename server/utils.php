@@ -65,6 +65,12 @@ function validate_user($conn, $username, $password, $type) {
         return null;
 }
 
+function exist_user($conn, $username, $type) {
+    $query = "select * from $type ".
+        "where username = '$username'";
+    return mysqli_query($conn, $query);
+}
+
 function get_student_by_id($conn, $sid) {
     $query = "select * from Student ".
         "where sid = $sid";
@@ -84,7 +90,7 @@ function get_teacher_by_id($conn, $tid) {
 }
 
 function new_course($conn, $name, $tid, $credit, $place) {
-    if (get_course_by_name($conn, $name, $tid, $place) != null)
+    if (get_course_by_name($conn, $name, $tid, $place))
         return false;
     $name = urlencode($name);
     $place = urlencode($place);

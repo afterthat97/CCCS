@@ -41,6 +41,7 @@ class addCourseViewController: UIViewController, UITextFieldDelegate {
     func makeAddCourseCall(_ name : String, _ credit : String, _ place : String) {
         let str = "\(serverDir)/addCourse.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&name=\(name)&credit=\(credit)&place=\(place)"
         let urlRequest = URLRequest(url: URL(string: str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!)
+        print(urlRequest)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
