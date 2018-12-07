@@ -15,6 +15,16 @@ class courseTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.addTarget(self, action: #selector(refreshdata),for: .valueChanged)
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Loading")
+        refreshdata()
+    }
+    
+    @objc func refreshdata(){
+        makeGetCourseListCall()
+        self.tableView.reloadData()
+        self.refreshControl!.endRefreshing()
     }
 
     override func viewDidAppear(_ animated: Bool) {

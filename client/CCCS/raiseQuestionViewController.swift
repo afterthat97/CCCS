@@ -99,6 +99,7 @@ class raiseQuestionViewController: UIViewController, UITextFieldDelegate, UITabl
                 if (responseDic["code"] as! Int == 1) {
                     self.showAlert("Error", responseDic["info"] as! String)
                 } else {
+                    DispatchQueue.main.async { self.navigationController?.popViewController(animated: true) }
                     self.showAlert("Success", responseDic["info"] as! String)
                 }
             } catch let parsingError {

@@ -23,6 +23,7 @@ for ($i = 0; $i < count($checkin_records); $i++) {
     $lesson = get_lesson_by_lid($conn, $checkin_records[$i]["lid"]);
     $checkin_records[$i]["student"] = $student;
     $checkin_records[$i]["lesson"] = $lesson;
+    if($checkin_records[$i]["checkin_time"] == NULL) $checkin_records[$i]["checkin_time"] = "N/A";
     unset($checkin_records[$i]["sid"]);
     unset($checkin_records[$i]["lid"]);
 }

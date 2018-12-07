@@ -129,11 +129,12 @@ class questionDetailViewController: UIViewController, UITableViewDelegate, UITab
                     DispatchQueue.main.async {
                         if (success) {
                             self.makeSubmitAnswerCall((self.questionTableView.indexPathForSelectedRow?.section)!)
+                                DispatchQueue.main.async { self.navigationController?.popViewController(animated: true) }
                         }
                     }
                 }
             } else {
-                self.showAlert("Touch ID not available", "Your device is not configured for Touch ID.")
+                self.showAlert("Touch ID/Face ID not available", "Your device is not configured for Touch ID/Face ID.")
             }
         }
     }

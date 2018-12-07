@@ -20,6 +20,20 @@ class questionTableViewController: UITableViewController {
         if user.type == "Student" {
             navigationItem.rightBarButtonItem = nil
         }
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.addTarget(self, action: #selector(refreshdata),for: .valueChanged)
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Loading")
+        refreshdata()
+    }
+    
+    @objc func refreshdata(){
+        makeGetQuestionListCall()
+        self.tableView.reloadData()
+        self.refreshControl!.endRefreshing()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         makeGetQuestionListCall()
     }
     

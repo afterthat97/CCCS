@@ -132,7 +132,7 @@ class courseDetailViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
         } else {
-            self.showAlert("Touch ID not available", "Your device is not configured for Touch ID.")
+            self.showAlert("Touch ID/Face ID not available", "Your device is not configured for Touch ID/Face ID.")
         }
     }
     
