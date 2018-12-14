@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A834CB4121C3510700D03AED /* settingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A834CB4021C3510700D03AED /* settingsViewController.swift */; };
 		B85E9C7C218BF64A00A3DD13 /* courseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E9C7B218BF64A00A3DD13 /* courseTableViewController.swift */; };
 		B85E9C7E218D7F2F00A3DD13 /* selectCourseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E9C7D218D7F2F00A3DD13 /* selectCourseTableViewController.swift */; };
 		B85E9C84218D9B9C00A3DD13 /* courseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85E9C83218D9B9C00A3DD13 /* courseDetailViewController.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A834CB4021C3510700D03AED /* settingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsViewController.swift; sourceTree = "<group>"; };
 		B85E9C7B218BF64A00A3DD13 /* courseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = courseTableViewController.swift; sourceTree = "<group>"; };
 		B85E9C7D218D7F2F00A3DD13 /* selectCourseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectCourseTableViewController.swift; sourceTree = "<group>"; };
 		B85E9C83218D9B9C00A3DD13 /* courseDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = courseDetailViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				B8AD3A5B2090220A00198572 /* Main.storyboard */,
+				A834CB4021C3510700D03AED /* settingsViewController.swift */,
 				B8AD3A572090220A00198572 /* AppDelegate.swift */,
 				B8AC3558218A8F82004E283F /* customDataStructure.swift */,
 				B8AD3A592090220A00198572 /* signInViewController.swift */,
@@ -183,6 +186,7 @@
 				B8AD3A702090825B00198572 /* meTableViewController.swift in Sources */,
 				B8AC3559218A8F82004E283F /* customDataStructure.swift in Sources */,
 				B8716F2621A554FD00252426 /* questionDetailViewController.swift in Sources */,
+				A834CB4121C3510700D03AED /* settingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

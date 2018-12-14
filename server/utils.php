@@ -68,7 +68,8 @@ function validate_user($conn, $username, $password, $type) {
 function exist_user($conn, $username, $type) {
     $query = "select * from $type ".
         "where username = '$username'";
-    return mysqli_query($conn, $query);
+    $retval = mysqli_query($conn, $query);
+    return mysqli_fetch_array($retval, MYSQLI_ASSOC);
 }
 
 function get_student_by_id($conn, $sid) {
@@ -139,6 +140,7 @@ function get_selection_records_by_cid($conn, $cid) {
 }
 
 function get_course_by_name($conn, $name, $tid) {
+    $name = urlencode($name);
     $query = "select * from Course ".
         "where name = '$name' and tid = $tid";
 	$retval = mysqli_query($conn, $query);
@@ -318,4 +320,31 @@ function get_answer_list_by_qid($conn, $qid) {
     return $checkin_records;
 }
 
+function update_student_realname($conn, $new_realname, $sid) {
+    $query = "update Student ".
+        "set realname = '$new_realname' ".
+        "where sid = $sid";
+    return mysqli_query($conn, $query);
+}
+
+function update_teacher_realname($conn, $new_realname, $tid) {
+    $query = "update Teacher ".
+        "set realname = '$new_realname' ".
+        "where tid = $tid";
+    return mysqli_query($conn, $query);
+}
+
+function update_student_password($conn, $new_password, $sid) {
+    $query = "update Student ".
+        "set password = md5('$new_password') ".
+        "where sid = $sid";
+    return mysqli_query($conn, $query);
+}
+
+function update_teacher_password($conn, $new_password, $tid) {
+    $query = "update Teacher ".
+        "set password = md5('$new_password') ".
+        "where tid = $tid";
+    return mysqli_query($conn, $query);
+}
 ?>
