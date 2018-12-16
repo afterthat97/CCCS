@@ -208,6 +208,13 @@ function get_lesson_by_lid($conn, $lid) {
     return mysqli_fetch_array($retval, MYSQLI_ASSOC);
 }
 
+function get_cid_by_lid($conn, $lid) {
+    $query = "select * from Lesson ".
+        "where lid = $lid";
+    $retval = mysqli_query($conn, $query);
+    return mysqli_fetch_array($retval, MYSQLI_ASSOC);
+}
+
 function get_lessonlist_by_cid($conn, $cid) {
     $query = "select * from Lesson ".
         "where cid = $cid order by start_time desc;";
@@ -309,6 +316,7 @@ function get_question_list_by_lid($conn, $lid) {
         array_push($checkin_records, $row);
     return $checkin_records;
 }
+
 
 function get_answer_list_by_qid($conn, $qid) {
     $query = "select * from StudentQuestion ".

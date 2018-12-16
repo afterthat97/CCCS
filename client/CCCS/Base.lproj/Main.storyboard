@@ -80,15 +80,20 @@
                                     <constraint firstItem="rJv-pp-y1u" firstAttribute="leading" secondItem="caW-nA-WtZ" secondAttribute="leading" id="XLq-jY-wBU"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XoU-Li-40w">
+                                <rect key="frame" x="150" y="480" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="XoU-Li-40w" firstAttribute="centerX" secondItem="bKe-Xv-TuR" secondAttribute="centerX" id="0Tp-lI-Pc7"/>
                             <constraint firstItem="bKe-Xv-TuR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3YA-lu-bAh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="caW-nA-WtZ" secondAttribute="trailing" constant="10" id="DkF-ut-5MY"/>
                             <constraint firstItem="caW-nA-WtZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="96" id="XdK-s0-YFR"/>
                             <constraint firstItem="caW-nA-WtZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="a9H-bI-SYN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bKe-Xv-TuR" secondAttribute="bottom" constant="96" id="l2Z-16-oDh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bKe-Xv-TuR" secondAttribute="trailing" id="ohv-Kt-Prz"/>
+                            <constraint firstItem="XoU-Li-40w" firstAttribute="top" secondItem="bKe-Xv-TuR" secondAttribute="bottom" constant="8" symbolic="YES" id="rgb-w8-8s6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -100,6 +105,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="XoU-Li-40w" id="yQN-6P-Sib"/>
                         <outlet property="passwordTextField" destination="rJv-pp-y1u" id="dgF-T3-zyA"/>
                         <outlet property="roleSegmentedControl" destination="5ZB-jm-FEk" id="3hl-1Y-7wK"/>
                         <outlet property="signInButton" destination="gMR-8o-Nb3" id="qpO-LY-jgI"/>
@@ -151,13 +157,10 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Me" selectedImage="tabbar_me" id="pzm-0T-R6f"/>
-                    <navigationItem key="navigationItem" title="Me" id="JC6-eI-tZw">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="setting" id="GhB-eZ-oEW">
-                            <connections>
-                                <segue destination="Jz4-33-mcO" kind="show" id="6Qz-nn-rMG"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Me" id="JC6-eI-tZw"/>
+                    <connections>
+                        <segue destination="Jz4-33-mcO" kind="show" identifier="segueToChangeInfo" id="T9g-aG-0L9"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mgx-WG-vX5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -761,9 +764,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <segmentedControl key="tableHeaderView" opaque="NO" contentMode="scaleToFill" semanticContentAttribute="playback" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="BoR-cm-Drn">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Today"/>
+                                <segment title="All"/>
+                            </segments>
+                            <connections>
+                                <action selector="valueChanged:" destination="rhS-6C-MiO" eventType="valueChanged" id="Idf-3h-ZGF"/>
+                            </connections>
+                        </segmentedControl>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="U01-dw-Gka" detailTextLabel="B2t-0D-hLg" style="IBUITableViewCellStyleValue1" id="avA-RU-E9S">
-                                <rect key="frame" x="0.0" y="55.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="85.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="avA-RU-E9S" id="OVD-27-fTy">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -801,6 +815,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="questionTableView" destination="Xte-rh-2h1" id="NR9-X4-Mxt"/>
+                        <outlet property="typeSegmentedControl" destination="BoR-cm-Drn" id="4kh-Pq-2ww"/>
                         <segue destination="FXp-Pp-Ra2" kind="show" identifier="segueToQuestionDetail" id="Ac2-I2-0Ju"/>
                     </connections>
                 </tableViewController>
@@ -970,7 +985,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="setting" width="22.5" height="22.5"/>
         <image name="tabbar_course" width="37.5" height="37.5"/>
         <image name="tabbar_me" width="37.5" height="37.5"/>
     </resources>

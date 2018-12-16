@@ -10,6 +10,7 @@ import UIKit
 
 class questionTableViewController: UITableViewController {
     @IBOutlet var questionTableView: UITableView!
+    @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
     
     var currentLesson = Lesson([:])
     var questionList = [Question]()
@@ -27,14 +28,13 @@ class questionTableViewController: UITableViewController {
     }
     
     @objc func refreshdata(){
-        makeGetQuestionListCall()
+        makeGetQuestionListCall(typeSegmentedControl.selectedSegmentIndex)
         self.tableView.reloadData()
         self.refreshControl!.endRefreshing()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        makeGetQuestionListCall()
     }
     
     func showAlert(_ title : String, _ msg : String) {
@@ -45,8 +45,8 @@ class questionTableViewController: UITableViewController {
         }
     }
 
-    func makeGetQuestionListCall() {
-        let str = "\(serverDir)/getQuestionList.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&lid=\(currentLesson.lid)"
+    func makeGetQuestionListCall(_ searchway : Int) {
+        let str = "\(serverDir)/getQuestionList.php?username=\(user.username)&password=\(user.password)&type=\(user.type)&lid=\(currentLesson.lid)&searchway=\(searchway)"
         let urlRequest = URLRequest(url: URL(string: str)!)
         let urlConfig = URLSessionConfiguration.default
         let urlSession = URLSession(configuration: urlConfig)
@@ -119,5 +119,8 @@ class questionTableViewController: UITableViewController {
             let t = segue.destination as? questionDetailViewController
             t?.selectedQuestion = self.selectedQuestion
         }
+    }
+    @IBAction func valueChanged(_ sender: UISegmentedControl) {
+        refreshdata()
     }
 }

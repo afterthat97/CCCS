@@ -14,8 +14,10 @@ class signInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var roleSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
+        activityIndicator.isHidden = true
         super.viewDidLoad()
         usernameTextField.delegate = self
         passwordTextField.delegate = self
@@ -74,6 +76,8 @@ class signInViewController: UIViewController, UITextFieldDelegate {
                 [unowned self] success, authenticationError in
                 if (success) {
                     DispatchQueue.main.async {
+                        self.activityIndicator.isHidden = false
+                        self.activityIndicator.startAnimating()
                         if (self.roleSegmentedControl.selectedSegmentIndex == 0) {
                             self.makeSignInCall(self.usernameTextField.text!, self.passwordTextField.text!, "Student")
                         } else {
@@ -84,6 +88,7 @@ class signInViewController: UIViewController, UITextFieldDelegate {
             }
         } else {
             self.showAlert("Touch ID/Face ID not available", "Your device is not configured for Touch ID/Face ID.")
+            activityIndicator.isHidden = true
         }
     }
     
@@ -96,4 +101,5 @@ class signInViewController: UIViewController, UITextFieldDelegate {
             authenticateUser()
         }
     }
+    
 }
