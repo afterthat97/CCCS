@@ -174,11 +174,11 @@ if (!mysqli_query($conn, $query)) {
         "PRIMARY KEY (sid, qid)".
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
     if (mysqli_query($conn, $query))
-        echo "<p>Table 'StudentLesson' created successfully.</p>";
+        echo "<p>Table 'StudentQuestion' created successfully.</p>";
     else
-        die("<p>Failed to create table 'StudentLesson': " . mysqli_error($conn) . "</p>");
+        die("<p>Failed to create table 'StudentQuestion': " . mysqli_error($conn) . "</p>");
 } else {
-    echo "<p>Table 'StudentLesson' exists.</p>";
+    echo "<p>Table 'StudentQuestion' exists.</p>";
 }
 
 echo "<p>Everything works fine.</p>";

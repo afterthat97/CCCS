@@ -6,25 +6,17 @@
 
 ```
 Successfully connected to MySQL.
-
 Create new database 'cccs'...
-
 Successfully connected to database 'cccs'.
-
 Checking tables....
-
 Table 'Student' created successfully.
-
 Table 'Teacher' created successfully.
-
 Table 'Course' created successfully.
-
 Table 'Lesson' created successfully.
-
+Table 'Question' created successfully.
 Table 'StudentCourse' created successfully.
-
 Table 'StudentLesson' created successfully.
-
+Table 'StudentQuestion' created successfully.
 Everything works fine.
 ```
 

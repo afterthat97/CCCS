@@ -89,7 +89,7 @@ Table 'Lesson' created successfully.
 Table 'Question' created successfully.
 Table 'StudentCourse' created successfully.
 Table 'StudentLesson' created successfully.
-Table 'StudentLesson' created successfully.
+Table 'StudentQuestion' created successfully.
 Everything works fine.
 ```
 
