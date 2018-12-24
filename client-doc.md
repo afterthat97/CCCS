@@ -3,7 +3,7 @@
 
 ## 图形界面概览
 
-![](screenshots/ui.png)
+![](screenshots/ui.jpg)
 
 ## 自定义数据结构
 
