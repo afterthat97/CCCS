@@ -4,8 +4,9 @@
 
 ## 硬件要求
 
-* 一台拥有 HTTPS + PHP + MySQL 运行环境的服务器
-* 一台拥有 Touch ID（或 Face ID）和 GPS 功能的 iPhone 手机（iOS 10+）。
+* 一台拥有 HTTP + PHP + MySQL 运行环境的服务器
+* 一台拥有 Xcode 10.0+ 和 iOS 开发环境的 Mac
+* 一台拥有 Touch ID（或 Face ID）和 GPS 功能的 iPhone 手机（iOS 10.0+）
 
 ## 特点
 
